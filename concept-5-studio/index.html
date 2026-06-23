@@ -6,7 +6,7 @@
 <title>MERIDIAN — Concept 5 · Studio</title>
 <style>
   :root{
-    --ink:#161616; --muted:#7c7c78; --line:#ececec; --bg:#ffffff; --bone:#f6f5f2; --green:#346538;
+    --ink:#1f1f1d; --muted:#76746c; --line:#dcdad2; --bg:#edece6; --bone:#e3e1d9; --green:#5f7355;
     --sans:'SF Pro Display','Helvetica Neue','Segoe UI',Arial,sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
@@ -17,7 +17,7 @@
   .wrap{max-width:1320px;margin:0 auto;padding:0 48px}
 
   .nav{display:flex;justify-content:space-between;align-items:center;padding:22px 48px;position:sticky;top:0;
-       background:rgba(255,255,255,.82);backdrop-filter:blur(16px);z-index:60;border-bottom:1px solid var(--line)}
+       background:rgba(237,236,230,.82);backdrop-filter:blur(16px);z-index:60;border-bottom:1px solid var(--line)}
   .brand{font-weight:600;font-size:18px;letter-spacing:-.01em}
   .nav ul{display:flex;gap:28px;list-style:none;font-size:14px;color:var(--muted)}
   .nav a:hover{color:var(--ink)}
@@ -31,7 +31,7 @@
   .intro p{max-width:44ch;color:var(--muted);font-size:18px}
 
   /* filter bar */
-  .filters{display:flex;gap:10px;flex-wrap:wrap;padding:8px 0 36px;position:sticky;top:65px;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);z-index:50}
+  .filters{display:flex;gap:10px;flex-wrap:wrap;padding:8px 0 36px;position:sticky;top:65px;background:rgba(237,236,230,.9);backdrop-filter:blur(10px);z-index:50}
   .filters button{font-family:inherit;font-size:14px;padding:9px 18px;border:1px solid var(--line);background:#fff;border-radius:980px;cursor:pointer;color:var(--muted);transition:all .2s}
   .filters button:hover{border-color:#cfcfcf;color:var(--ink)}
   .filters button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
@@ -76,7 +76,7 @@
   .similar .row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   .similar a{border:1px solid var(--line);border-radius:14px;padding:24px;transition:transform .2s,box-shadow .2s}
   .similar a:hover{transform:translateY(-3px);box-shadow:0 4px 20px rgba(0,0,0,.05)}
-  .similar .nm{font-size:18px;font-weight:600}.similar .ds{font-size:14px;color:var(--muted);margin-top:6px}.similar .go{font-size:13px;color:#2563a8;margin-top:14px}
+  .similar .nm{font-size:18px;font-weight:600}.similar .ds{font-size:14px;color:var(--muted);margin-top:6px}.similar .go{font-size:13px;color:var(--green);margin-top:14px}
 
   .contact{text-align:center;padding:120px 0;border-top:1px solid var(--line)}
   .contact h2{font-size:clamp(32px,5vw,60px);font-weight:600;letter-spacing:-.03em}
@@ -172,9 +172,9 @@
     <section class="similar">
       <h3 class="reveal">Portfolios in a similar spirit</h3>
       <div class="row">
-        <a class="reveal" href="https://anderssonwise.com" target="_blank" rel="noopener"><div class="nm">Andersson-Wise</div><div class="ds">Clean white grid, imagery-led portfolio.</div><div class="go">anderssonwise.com ↗</div></a>
-        <a class="reveal" href="https://www.fosterandpartners.com" target="_blank" rel="noopener"><div class="nm">Foster + Partners</div><div class="ds">Deep, filterable body of work.</div><div class="go">fosterandpartners.com ↗</div></a>
         <a class="reveal" href="https://www.mvrdv.com" target="_blank" rel="noopener"><div class="nm">MVRDV</div><div class="ds">Rich project grid with strong categorisation.</div><div class="go">mvrdv.com ↗</div></a>
+        <a class="reveal" href="https://www.rpbw.com" target="_blank" rel="noopener"><div class="nm">Renzo Piano (RPBW)</div><div class="ds">Calm, image-led portfolio of a Pritzker laureate.</div><div class="go">rpbw.com ↗</div></a>
+        <a class="reveal" href="https://grimshaw.global" target="_blank" rel="noopener"><div class="nm">Grimshaw</div><div class="ds">Clean, filterable global body of work.</div><div class="go">grimshaw.global ↗</div></a>
       </div>
     </section>
 
