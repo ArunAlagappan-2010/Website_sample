@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MERIDIAN — Website Concepts</title>
+<style>
+  :root{
+    --ink:#111111; --muted:#787774; --line:#EAEAEA; --bg:#FFFFFF; --bone:#F7F6F3;
+    --sans:'SF Pro Display','Helvetica Neue','Segoe UI',Arial,sans-serif;
+    --mono:'SF Mono','JetBrains Mono','Consolas',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img{display:block;width:100%;height:auto}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+
+  header.top{border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;justify-content:space-between;align-items:center;padding:20px 40px}
+  .brand{font-weight:600;font-size:18px;letter-spacing:-.01em}
+  .brand span{color:var(--muted);font-weight:400}
+  .top .meta{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+  .hero{padding:90px 0 30px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}
+  .hero h1{font-size:clamp(38px,6vw,72px);font-weight:600;letter-spacing:-.03em;line-height:1.04;max-width:16ch}
+  .hero p{margin-top:24px;max-width:60ch;font-size:18px;color:var(--muted)}
+  .legend{margin-top:30px;display:flex;flex-wrap:wrap;gap:10px}
+  .pill{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#55524c;
+        background:var(--bone);border:1px solid var(--line);border-radius:9999px;padding:6px 13px}
+
+  .cat{padding:60px 0 10px}
+  .cat-h{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:34px}
+  .cat-h .no{font-family:var(--mono);font-size:13px;color:var(--muted)}
+  .cat-h h2{font-size:22px;font-weight:600;letter-spacing:-.01em}
+  .cat-h .d{margin-left:auto;font-size:14px;color:var(--muted)}
+
+  .row{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+  .card{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;
+        transition:box-shadow .25s,transform .25s;display:flex;flex-direction:column}
+  .card:hover{box-shadow:0 4px 20px rgba(0,0,0,.05);transform:translateY(-2px)}
+  .card .shot{aspect-ratio:16/10;overflow:hidden;background:var(--bone);border-bottom:1px solid var(--line)}
+  .card .shot img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+  .card:hover .shot img{transform:scale(1.04)}
+  .card .body{padding:22px 24px 24px}
+  .card .body .k{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .card .body h3{font-size:21px;font-weight:600;letter-spacing:-.01em;margin-top:10px}
+  .card .body p{margin-top:8px;font-size:15px;color:var(--muted);line-height:1.55}
+  .card .body .open{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-size:14px;font-weight:500}
+  .card .body .open::after{content:"\2192";transition:transform .2s}
+  .card:hover .body .open::after{transform:translateX(4px)}
+
+  /* references */
+  .refs{margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .ref{display:grid;grid-template-columns:30px 1fr auto;gap:18px;align-items:center;padding:20px 24px;border-bottom:1px solid var(--line);transition:background .2s}
+  .ref:last-child{border-bottom:none}
+  .ref:hover{background:var(--bone)}
+  .ref .no{font-family:var(--mono);font-size:13px;color:var(--muted)}
+  .ref .nm{font-size:17px;font-weight:600}
+  .ref .ds{font-size:14px;color:var(--muted);margin-top:2px}
+  .ref .go{font-family:var(--mono);font-size:12px;color:#1f6c9f;white-space:nowrap}
+
+  footer{margin-top:80px;border-top:1px solid var(--line)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:40px 40px;color:var(--muted);font-size:13.5px}
+
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:760px){
+    .wrap,.top .wrap,footer .wrap{padding-left:22px;padding-right:22px}
+    .top .meta{display:none}
+    .hero{padding:60px 0 20px}
+    .row{grid-template-columns:1fr;gap:20px}
+    .cat-h .d{display:none}
+    .ref{grid-template-columns:24px 1fr;gap:12px}
+    .ref .go{grid-column:2;text-align:left}
+  }
+</style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <div class="brand">MERIDIAN <span>· Website Concepts</span></div>
+      <div class="meta">6 directions · 6 references</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow reveal">Construction &amp; Architecture — Design Review</div>
+      <h1 class="reveal">Six minimalist directions for the new website.</h1>
+      <p class="reveal">Each is a clickable, static, image-led page built in the spirit of apple.com — clean, calm, very little motion. Same brand throughout, so you're comparing layout and feel, not content. Open any card to view it full-screen, then tell us which one to take forward.</p>
+      <div class="legend reveal">
+        <span class="pill">Static · image-led</span>
+        <span class="pill">Minimal motion</span>
+        <span class="pill">Mobile-ready</span>
+        <span class="pill">Placeholder copy</span>
+      </div>
+    </section>
+
+    <!-- Category: Image-led -->
+    <section class="cat">
+      <div class="cat-h reveal"><span class="no">A</span><h2>Image-led &amp; cinematic</h2><span class="d">Photography does the talking</span></div>
+      <div class="row">
+        <a class="card reveal" href="concept-1-product/index.html">
+          <div class="shot"><img src="assets/arch-tower-1.jpg" alt="Concept 1 preview"></div>
+          <div class="body"><div class="k">Concept 01</div><h3>Product Showcase</h3>
+            <p>Apple-style. Huge centered hero, immense whitespace, full-bleed building shots stacked one after another.</p>
+            <span class="open">Open concept</span></div>
+        </a>
+        <a class="card reveal" href="concept-4-cinematic/index.html">
+          <div class="shot"><img src="assets/arch-spiral-1.jpg" alt="Concept 4 preview"></div>
+          <div class="body"><div class="k">Concept 04</div><h3>Cinematic (Dark)</h3>
+            <p>Fullscreen photography with minimal overlaid text, section by section. The most dramatic, most immersive option.</p>
+            <span class="open">Open concept</span></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Category: Editorial -->
+    <section class="cat">
+      <div class="cat-h reveal"><span class="no">B</span><h2>Editorial &amp; warm</h2><span class="d">Quiet-luxury, magazine feel</span></div>
+      <div class="row">
+        <a class="card reveal" href="concept-2-editorial/index.html">
+          <div class="shot"><img src="assets/arch-abstract-1.jpg" alt="Concept 2 preview"></div>
+          <div class="body"><div class="k">Concept 02</div><h3>Architectural Journal</h3>
+            <p>Large serif display type, asymmetric two-column grid, warm off-white paper. Reads like a considered design magazine.</p>
+            <span class="open">Open concept</span></div>
+        </a>
+        <a class="card reveal" href="concept-5-studio/index.html">
+          <div class="shot"><img src="assets/house-modern-1.jpg" alt="Concept 5 preview"></div>
+          <div class="body"><div class="k">Concept 05</div><h3>Studio Portfolio</h3>
+            <p>Clean white, a calm thumbnail grid of projects, minimal nav, lots of air. The safest premium option.</p>
+            <span class="open">Open concept</span></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Category: Structured -->
+    <section class="cat">
+      <div class="cat-h reveal"><span class="no">C</span><h2>Structured &amp; engineered</h2><span class="d">Discipline you can see</span></div>
+      <div class="row">
+        <a class="card reveal" href="concept-3-swiss-grid/index.html">
+          <div class="shot"><img src="assets/arch-facade-2.jpg" alt="Concept 3 preview"></div>
+          <div class="body"><div class="k">Concept 03</div><h3>Structured Grid</h3>
+            <p>Strict modular grid, tight type, a numbered project register. Feels precise and engineered — built, not decorated.</p>
+            <span class="open">Open concept</span></div>
+        </a>
+        <a class="card reveal" href="concept-6-typographic/index.html">
+          <div class="shot"><img src="assets/concrete-1.jpg" alt="Concept 6 preview"></div>
+          <div class="body"><div class="k">Concept 06</div><h3>Bold Typographic</h3>
+            <p>Oversized monochrome type carries the page; imagery is a supporting act. Confident and memorable.</p>
+            <span class="open">Open concept</span></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Reference sites -->
+    <section class="cat">
+      <div class="cat-h reveal"><span class="no">D</span><h2>Reference sites (live, real firms)</h2><span class="d">Inspiration that matches the brief</span></div>
+      <div class="refs reveal">
+        <a class="ref" href="https://johnpawson.com" target="_blank" rel="noopener"><span class="no">01</span><span><span class="nm">John Pawson</span><div class="ds">The reference point for architectural minimalism — empty space, photography only.</div></span><span class="go">johnpawson.com ↗</span></a>
+        <a class="ref" href="https://tenberke.com" target="_blank" rel="noopener"><span class="no">02</span><span><span class="nm">TenBerke</span><div class="ds">Extreme minimalism — almost no homepage text, full-screen imagery, hidden nav.</div></span><span class="go">tenberke.com ↗</span></a>
+        <a class="ref" href="https://davidchipperfield.com" target="_blank" rel="noopener"><span class="no">03</span><span><span class="nm">David Chipperfield Architects</span><div class="ds">Calm, monumental, perfectly gridded. Restrained type, generous margins.</div></span><span class="go">davidchipperfield.com ↗</span></a>
+        <a class="ref" href="https://vincentvanduysen.com" target="_blank" rel="noopener"><span class="no">04</span><span><span class="nm">Vincent Van Duysen</span><div class="ds">Warm minimalism — material, light and proportion, tactile and editorial.</div></span><span class="go">vincentvanduysen.com ↗</span></a>
+        <a class="ref" href="https://anderssonwise.com" target="_blank" rel="noopener"><span class="no">05</span><span><span class="nm">Andersson-Wise</span><div class="ds">Clean white portfolio driven by high-quality project imagery on a calm grid.</div></span><span class="go">anderssonwise.com ↗</span></a>
+        <a class="ref" href="https://carusostjohn.com" target="_blank" rel="noopener"><span class="no">06</span><span><span class="nm">Caruso St John</span><div class="ds">Quiet, typographic, almost academic. Structure and text over imagery.</div></span><span class="go">carusostjohn.com ↗</span></a>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div>MERIDIAN — Website Concepts · Prepared for client review</div>
+      <div>Fictional brand &amp; placeholder copy · Photography for layout only</div>
+    </div>
+  </footer>
+
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

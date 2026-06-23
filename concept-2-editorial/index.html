@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MERIDIAN — Concept 2 · Architectural Journal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1a18; --muted:#6f6c66; --line:#e4e1da; --bg:#f7f6f3; --paper:#fffdf9;
+    --serif:'Newsreader',Georgia,'Times New Roman',serif;
+    --sans:'Helvetica Neue','Segoe UI',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{display:block;width:100%;height:auto}
+  a{color:inherit;text-decoration:none}
+
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+
+  header.top{display:flex;justify-content:space-between;align-items:baseline;padding:30px 40px;border-bottom:1px solid var(--line)}
+  .brand{font-family:var(--serif);font-size:24px;letter-spacing:-.02em}
+  .top nav{display:flex;gap:30px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  .top nav a:hover{color:var(--ink)}
+
+  /* masthead */
+  .masthead{padding:90px 0 60px;border-bottom:1px solid var(--line)}
+  .issue{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:30px}
+  .masthead h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,7.5vw,104px);line-height:1.02;letter-spacing:-.025em;max-width:14ch}
+  .masthead .lede{margin-top:30px;max-width:52ch;font-size:19px;color:#34322d}
+  .masthead .lede em{font-family:var(--serif);font-style:italic}
+
+  .hero-img{margin:70px 0}
+  .hero-img img{filter:saturate(.92) contrast(1.02)}
+  .cap{margin-top:14px;font-size:13px;color:var(--muted);font-style:italic;font-family:var(--serif)}
+
+  /* asymmetric article rows */
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:90px 0;border-bottom:1px solid var(--line)}
+  .row.flip .text{order:2}
+  .kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+  .row h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,48px);line-height:1.08;letter-spacing:-.02em}
+  .row p{margin-top:20px;font-size:17px;color:#4a473f;max-width:46ch}
+  .read{display:inline-block;margin-top:26px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:3px}
+
+  /* index list */
+  .index{padding:90px 0}
+  .index h3{font-family:var(--serif);font-size:30px;font-weight:400;margin-bottom:10px}
+  .index .il{display:flex;justify-content:space-between;align-items:baseline;padding:24px 0;border-bottom:1px solid var(--line);font-size:18px}
+  .index .il .yr{color:var(--muted);font-family:var(--serif);font-style:italic}
+  .index .il:hover .nm{font-style:italic;font-family:var(--serif)}
+
+  footer{background:var(--ink);color:#cfccc4;padding:70px 40px}
+  footer .fwrap{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;align-items:flex-end}
+  footer .fbrand{font-family:var(--serif);font-size:30px;color:#fffdf9}
+  footer small{font-size:13px;color:#8f8b81}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:780px){
+    .wrap,header.top,footer{padding-left:22px;padding-right:22px}
+    .top nav{display:none}
+    .row{grid-template-columns:1fr;gap:30px;padding:60px 0}
+    .row.flip .text{order:0}
+    .masthead{padding:60px 0 40px}
+  }
+</style>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">Meridian</div>
+    <nav><a href="#projects">Projects</a><a href="#practice">Practice</a><a href="#journal">Journal</a><a href="#contact">Contact</a></nav>
+  </header>
+
+  <div class="wrap">
+    <section class="masthead">
+      <div class="issue reveal">Construction &amp; Architecture — Est. 1984</div>
+      <h1 class="reveal">Buildings that hold their silence.</h1>
+      <p class="lede reveal">An architecture and construction practice working in concrete, timber and light. We build slowly, and <em>we build well</em>.</p>
+    </section>
+
+    <figure class="hero-img reveal">
+      <img src="../assets/arch-abstract-1.jpg" alt="Abstract architectural detail in concrete">
+      <figcaption class="cap">Hollowell House — exposed concrete stair, completed 2023.</figcaption>
+    </figure>
+
+    <section class="row" id="projects">
+      <div class="text">
+        <div class="kicker reveal">Selected Work — N°01</div>
+        <h2 class="reveal">A house carved from a single material.</h2>
+        <p class="reveal">Set into a north-facing slope, the residence uses board-formed concrete inside and out, leaving the structure entirely legible.</p>
+        <a class="read reveal" href="#">Read the project</a>
+      </div>
+      <div class="reveal"><img src="../assets/house-modern-1.jpg" alt="Modern concrete house"></div>
+    </section>
+
+    <section class="row flip" id="practice">
+      <div class="text">
+        <div class="kicker reveal">The Practice</div>
+        <h2 class="reveal">Drawing, detailing, and building under one roof.</h2>
+        <p class="reveal">Our architects and site teams share an office and a vocabulary, so the building you are shown is the building you receive.</p>
+        <a class="read reveal" href="#">About the studio</a>
+      </div>
+      <div class="reveal"><img src="../assets/interior-office-1.jpg" alt="A quiet studio interior"></div>
+    </section>
+
+    <section class="index" id="journal">
+      <h3 class="reveal">Project Index</h3>
+      <div class="il reveal"><span class="nm">Hollowell House</span><span class="yr">2023</span></div>
+      <div class="il reveal"><span class="nm">Quay Street Workshops</span><span class="yr">2022</span></div>
+      <div class="il reveal"><span class="nm">St. Bride Pavilion</span><span class="yr">2021</span></div>
+      <div class="il reveal"><span class="nm">Northgate Terraces</span><span class="yr">2019</span></div>
+      <div class="il reveal"><span class="nm">The Reading Rooms</span><span class="yr">2017</span></div>
+    </section>
+  </div>
+
+  <footer id="contact">
+    <div class="fwrap">
+      <div class="fbrand">Meridian</div>
+      <small>hello@meridian-build.com<br>Studio 4, Quay Street · By appointment</small>
+    </div>
+  </footer>
+
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

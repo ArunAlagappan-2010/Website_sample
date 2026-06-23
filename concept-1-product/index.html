@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MERIDIAN — Concept 1 · Product Showcase</title>
+<style>
+  :root{
+    --ink:#111111; --muted:#787774; --line:#EAEAEA; --bg:#FFFFFF; --bone:#F7F6F3;
+    --sans:'SF Pro Display','Helvetica Neue','Segoe UI',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.6}
+  a{color:inherit;text-decoration:none}
+  img{display:block;width:100%;height:auto}
+
+  /* Nav */
+  .nav{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;
+       padding:18px 40px;background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(20px);
+       border-bottom:1px solid var(--line)}
+  .brand{font-weight:600;letter-spacing:-.02em;font-size:18px}
+  .nav ul{display:flex;gap:34px;list-style:none;font-size:13.5px;color:var(--muted)}
+  .nav a:hover{color:var(--ink)}
+
+  /* Hero */
+  .hero{text-align:center;padding:120px 24px 60px;max-width:900px;margin:0 auto}
+  .eyebrow{font-size:13px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;margin-bottom:20px}
+  .hero h1{font-size:clamp(46px,8vw,92px);font-weight:600;letter-spacing:-.04em;line-height:1.02}
+  .hero p{margin:26px auto 0;max-width:560px;font-size:clamp(18px,2.4vw,22px);color:var(--muted)}
+  .cta{display:inline-flex;gap:18px;margin-top:38px}
+  .btn{padding:13px 26px;border-radius:6px;font-size:15px;font-weight:500;transition:transform .2s,background .2s}
+  .btn-dark{background:var(--ink);color:#fff}
+  .btn-dark:hover{background:#333}
+  .btn-ghost{color:var(--ink)}
+  .btn-ghost:hover{color:var(--muted)}
+  .btn:active{transform:scale(.98)}
+
+  .hero-shot{max-width:1180px;margin:50px auto 0;padding:0 24px}
+  .hero-shot img{border-radius:14px}
+
+  /* Stacked product-style sections */
+  .panel{text-align:center;padding:130px 24px}
+  .panel.bone{background:var(--bone)}
+  .panel h2{font-size:clamp(34px,5vw,60px);font-weight:600;letter-spacing:-.03em;line-height:1.05}
+  .panel .sub{margin:18px auto 0;max-width:520px;color:var(--muted);font-size:clamp(17px,2vw,20px)}
+  .panel .frame{max-width:1100px;margin:54px auto 0}
+  .panel .frame img{border-radius:14px}
+
+  /* Spec strip */
+  .specs{max-width:1000px;margin:0 auto;padding:120px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
+  .spec .n{font-size:clamp(40px,5vw,58px);font-weight:600;letter-spacing:-.03em}
+  .spec .l{margin-top:8px;color:var(--muted);font-size:15px}
+
+  footer{border-top:1px solid var(--line);padding:54px 40px;display:flex;justify-content:space-between;
+          flex-wrap:wrap;gap:20px;color:var(--muted);font-size:13.5px}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:720px){
+    .nav{padding:16px 22px}.nav ul{display:none}
+    .hero{padding:80px 22px 40px}
+    .specs{grid-template-columns:1fr;gap:40px;padding:80px 24px}
+    .panel{padding:90px 22px}
+  }
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="brand">MERIDIAN</div>
+    <ul>
+      <li><a href="#build">Build</a></li>
+      <li><a href="#design">Design</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow reveal">Construction &amp; Architecture</div>
+    <h1 class="reveal">Built to last.<br>Designed to be lived in.</h1>
+    <p class="reveal">We design and construct precise, enduring buildings — from private residences to civic landmarks.</p>
+    <div class="cta reveal">
+      <a class="btn btn-dark" href="#work">See our work</a>
+      <a class="btn btn-ghost" href="#contact">Start a project &rsaquo;</a>
+    </div>
+  </header>
+
+  <div class="hero-shot reveal">
+    <img src="../assets/arch-tower-1.jpg" alt="A modern building facade against the sky">
+  </div>
+
+  <section class="panel" id="build">
+    <h2 class="reveal">Engineering, not guesswork.</h2>
+    <p class="sub reveal">Every joint, span and surface resolved before the first pour. We deliver on the day we promise.</p>
+    <div class="frame reveal"><img src="../assets/construction-site-1.jpg" alt="An active construction site at dusk"></div>
+  </section>
+
+  <section class="panel bone" id="design">
+    <h2 class="reveal">Light, material, proportion.</h2>
+    <p class="sub reveal">Our in-house architects shape spaces that feel calm, generous and quietly considered.</p>
+    <div class="frame reveal"><img src="../assets/interior-1.jpg" alt="A minimal, light-filled interior"></div>
+  </section>
+
+  <section class="panel" id="work">
+    <h2 class="reveal">A portfolio of restraint.</h2>
+    <p class="sub reveal">Forty years of residences, workplaces and public buildings across the region.</p>
+    <div class="frame reveal"><img src="../assets/villa-1.jpg" alt="A completed modern villa"></div>
+  </section>
+
+  <section class="specs">
+    <div class="spec reveal"><div class="n">40</div><div class="l">Years building</div></div>
+    <div class="spec reveal"><div class="n">320+</div><div class="l">Projects delivered</div></div>
+    <div class="spec reveal"><div class="n">98%</div><div class="l">On-time completion</div></div>
+  </section>
+
+  <footer id="contact">
+    <div>MERIDIAN — Construction &amp; Architecture</div>
+    <div>hello@meridian-build.com · +1 (000) 000-0000</div>
+  </footer>
+
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

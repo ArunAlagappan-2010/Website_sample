@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MERIDIAN — Concept 6 · Typographic</title>
+<style>
+  :root{
+    --ink:#111110; --muted:#8b897f; --line:#1f1e1b; --bg:#f4f2ec; --paper:#eceae3;
+    --sans:'SF Pro Display','Helvetica Neue','Arial',sans-serif;
+    --mono:'SF Mono','JetBrains Mono','Consolas',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img{display:block;width:100%;height:auto}
+
+  .nav{display:flex;justify-content:space-between;align-items:center;padding:24px 40px;border-bottom:1px solid var(--ink)}
+  .brand{font-weight:700;font-size:17px;letter-spacing:.02em}
+  .nav .r{display:flex;gap:28px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+  .nav a:hover{opacity:.6}
+
+  /* giant type hero */
+  .hero{padding:80px 40px 40px}
+  .hero .meta{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;
+              text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:18px}
+  .giant{font-weight:700;letter-spacing:-.045em;line-height:.86;font-size:clamp(64px,17vw,260px);margin-top:30px}
+  .giant .o{color:var(--bg);-webkit-text-stroke:2px var(--ink)}
+  .hero .foot{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-top:36px}
+  .hero .foot p{max-width:40ch;font-size:18px;color:#39372f}
+  .hero .foot .ar{font-family:var(--mono);font-size:13px;color:var(--muted)}
+
+  /* full strip image */
+  .strip{margin:40px 0}
+  .strip img{height:62vh;min-height:360px;object-fit:cover;filter:grayscale(.2) contrast(1.05)}
+
+  /* manifesto rows */
+  .rows{border-top:1px solid var(--ink)}
+  .mrow{display:grid;grid-template-columns:120px 1fr;gap:30px;padding:54px 40px;border-bottom:1px solid var(--line);align-items:start}
+  .mrow .no{font-family:var(--mono);font-size:13px;color:var(--muted);padding-top:10px}
+  .mrow h2{font-size:clamp(28px,5vw,58px);font-weight:700;letter-spacing:-.03em;line-height:1.02}
+  .mrow p{margin-top:16px;max-width:54ch;color:#46443c;font-size:17px}
+
+  /* marquee-ish project list */
+  .plist{padding:90px 40px;border-bottom:1px solid var(--ink)}
+  .plist .pl{display:flex;justify-content:space-between;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--line);
+             font-size:clamp(22px,4vw,40px);font-weight:600;letter-spacing:-.02em;transition:padding-left .3s}
+  .plist .pl:hover{padding-left:18px}
+  .plist .pl .yr{font-family:var(--mono);font-size:14px;font-weight:400;color:var(--muted)}
+
+  .cta{padding:120px 40px;text-align:center}
+  .cta h2{font-size:clamp(40px,9vw,120px);font-weight:700;letter-spacing:-.04em;line-height:.92}
+  .cta a{display:inline-block;margin-top:34px;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.08em;
+         border:1px solid var(--ink);padding:14px 26px;transition:background .2s,color .2s}
+  .cta a:hover{background:var(--ink);color:var(--bg)}
+  footer{border-top:1px solid var(--ink);padding:30px 40px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+         font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:820px){
+    .nav,.hero,.plist,.cta,footer{padding-left:22px;padding-right:22px}
+    .nav .r{display:none}
+    .mrow{grid-template-columns:1fr;gap:12px;padding:40px 22px}
+    .mrow .no{padding-top:0}
+  }
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="brand">MERIDIAN</div>
+    <div class="r"><a href="#work">Work</a><a href="#ethos">Ethos</a><a href="#contact">Contact</a></div>
+  </nav>
+
+  <header class="hero">
+    <div class="meta reveal"><span>Construction / Architecture</span><span>Est. 1984</span><span>National</span></div>
+    <div class="giant reveal">WE<br>BUILD<br>F<span class="o">O</span>RM.</div>
+    <div class="foot">
+      <p class="reveal">A design-and-build practice for people who want one team accountable for the whole building — drawing to handover.</p>
+      <div class="ar reveal">[ Scroll ↓ ]</div>
+    </div>
+  </header>
+
+  <div class="strip reveal"><img src="../assets/concrete-1.jpg" alt="Raw concrete structure"></div>
+
+  <section class="rows" id="ethos">
+    <div class="mrow reveal"><div class="no">01 / Ethos</div><div><h2>Material honesty.</h2><p>We leave structure visible. Concrete reads as concrete, timber as timber — nothing dressed up to be something it isn't.</p></div></div>
+    <div class="mrow reveal"><div class="no">02 / Ethos</div><div><h2>One team, start to finish.</h2><p>The architects who draw your building are on site when it's poured. Accountability never changes hands.</p></div></div>
+    <div class="mrow reveal"><div class="no">03 / Ethos</div><div><h2>On the date we promise.</h2><p>Ninety-eight percent of our projects complete on schedule. We plan the build before we sign the contract.</p></div></div>
+  </section>
+
+  <section class="plist" id="work">
+    <div class="pl reveal"><span>Hollowell House</span><span class="yr">2023 — Residential</span></div>
+    <div class="pl reveal"><span>Quay Street Workshops</span><span class="yr">2022 — Workplace</span></div>
+    <div class="pl reveal"><span>St. Bride Pavilion</span><span class="yr">2021 — Civic</span></div>
+    <div class="pl reveal"><span>Northgate Terraces</span><span class="yr">2019 — Residential</span></div>
+    <div class="pl reveal"><span>The Reading Rooms</span><span class="yr">2017 — Civic</span></div>
+  </section>
+
+  <section class="cta" id="contact">
+    <h2 class="reveal">LET'S<br>BUILD.</h2>
+    <a class="reveal" href="mailto:hello@meridian-build.com">hello@meridian-build.com</a>
+  </section>
+
+  <footer>
+    <div>MERIDIAN © 2026</div>
+    <div>Construction &amp; Architecture</div>
+    <div>+1 (000) 000-0000</div>
+  </footer>
+
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
