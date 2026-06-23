@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MERIDIAN — Concept 5 · Studio Portfolio</title>
+<title>MERIDIAN — Concept 5 · Studio</title>
 <style>
   :root{
-    --ink:#161616; --muted:#7c7c78; --line:#ececec; --bg:#ffffff; --bone:#f7f6f3;
+    --ink:#161616; --muted:#7c7c78; --line:#ececec; --bg:#ffffff; --bone:#f6f5f2; --green:#346538;
     --sans:'SF Pro Display','Helvetica Neue','Segoe UI',Arial,sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
@@ -14,94 +14,168 @@
   body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
   img{display:block;width:100%;height:auto}
-  .wrap{max-width:1280px;margin:0 auto;padding:0 48px}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 48px}
 
-  .nav{display:flex;justify-content:space-between;align-items:center;padding:26px 48px;
-       position:sticky;top:0;background:rgba(255,255,255,.8);backdrop-filter:blur(16px);z-index:40;border-bottom:1px solid var(--line)}
+  .nav{display:flex;justify-content:space-between;align-items:center;padding:22px 48px;position:sticky;top:0;
+       background:rgba(255,255,255,.82);backdrop-filter:blur(16px);z-index:60;border-bottom:1px solid var(--line)}
   .brand{font-weight:600;font-size:18px;letter-spacing:-.01em}
-  .nav ul{display:flex;gap:30px;list-style:none;font-size:14px;color:var(--muted)}
+  .nav ul{display:flex;gap:28px;list-style:none;font-size:14px;color:var(--muted)}
   .nav a:hover{color:var(--ink)}
+  .nav .av{font-size:13px;color:var(--muted)}
+  .nav .av b{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:7px;vertical-align:middle;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 
-  .intro{padding:110px 0 70px}
-  .intro h1{font-size:clamp(36px,5.2vw,68px);font-weight:600;letter-spacing:-.03em;line-height:1.05;max-width:18ch}
-  .intro .row{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-top:34px}
-  .intro p{max-width:42ch;color:var(--muted);font-size:18px}
-  .intro .avail{font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
-  .intro .avail b{display:inline-block;width:8px;height:8px;border-radius:50%;background:#346538;margin-right:8px;vertical-align:middle}
+  .intro{padding:96px 0 44px}
+  .intro h1{font-size:clamp(38px,5.4vw,72px);font-weight:600;letter-spacing:-.03em;line-height:1.04;max-width:18ch}
+  .intro .r{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-top:32px}
+  .intro p{max-width:44ch;color:var(--muted);font-size:18px}
+
+  /* filter bar */
+  .filters{display:flex;gap:10px;flex-wrap:wrap;padding:8px 0 36px;position:sticky;top:65px;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);z-index:50}
+  .filters button{font-family:inherit;font-size:14px;padding:9px 18px;border:1px solid var(--line);background:#fff;border-radius:980px;cursor:pointer;color:var(--muted);transition:all .2s}
+  .filters button:hover{border-color:#cfcfcf;color:var(--ink)}
+  .filters button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .filters .count{margin-left:auto;align-self:center;font-size:13px;color:var(--muted)}
 
   /* portfolio grid */
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding-bottom:40px}
-  .tile{position:relative;overflow:hidden;border-radius:12px;background:var(--bone)}
-  .tile.wide{grid-column:span 2}
+  .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;padding-bottom:30px}
+  .tile{grid-column:span 2;position:relative;overflow:hidden;border-radius:12px;background:var(--bone);cursor:pointer;transition:opacity .35s,transform .35s}
+  .tile.hide{display:none}
+  .tile.w3{grid-column:span 3}.tile.w4{grid-column:span 4}
+  .tile .ph{overflow:hidden}
   .tile img{aspect-ratio:4/3;object-fit:cover;transition:transform .9s cubic-bezier(.16,1,.3,1)}
-  .tile.wide img{aspect-ratio:16/7}
-  .tile:hover img{transform:scale(1.03)}
-  .tile .cap{display:flex;justify-content:space-between;align-items:baseline;padding:18px 4px 8px}
-  .tile .cap .t{font-size:17px;font-weight:600}
-  .tile .cap .m{font-size:13px;color:var(--muted)}
+  .tile.w4 img,.tile.w3 img{aspect-ratio:16/9}
+  .tile:hover img{transform:scale(1.04)}
+  .tile .ov{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:22px;
+            background:linear-gradient(0deg,rgba(0,0,0,.55),rgba(0,0,0,0) 55%);color:#fff;opacity:0;transition:opacity .3s}
+  .tile:hover .ov{opacity:1}
+  .tile .ov .t{font-size:19px;font-weight:600}
+  .tile .ov .m{font-size:13px;opacity:.85;margin-top:2px}
 
-  /* about strip */
+  /* about */
   .about{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:110px 0;border-top:1px solid var(--line)}
-  .about h2{font-size:clamp(28px,3.6vw,44px);font-weight:600;letter-spacing:-.02em;line-height:1.1}
-  .about p{margin-top:20px;color:var(--muted);font-size:17px;max-width:46ch}
-  .about .stats{display:grid;grid-template-columns:1fr 1fr;gap:30px 40px;margin-top:36px}
-  .about .stats .n{font-size:34px;font-weight:600;letter-spacing:-.02em}
-  .about .stats .l{font-size:13px;color:var(--muted);margin-top:4px}
+  .about h2{font-size:clamp(28px,3.6vw,46px);font-weight:600;letter-spacing:-.02em;line-height:1.1}
+  .about p{margin-top:18px;color:var(--muted);font-size:17px;max-width:46ch}
+  .about .st{display:grid;grid-template-columns:1fr 1fr;gap:28px 40px;margin-top:36px}
+  .about .st .n{font-size:34px;font-weight:600;letter-spacing:-.02em}
+  .about .st .l{font-size:13px;color:var(--muted);margin-top:2px}
   .about .img img{border-radius:14px;aspect-ratio:3/4;object-fit:cover}
 
-  /* contact */
+  /* team */
+  .team{padding:100px 0;border-top:1px solid var(--line)}
+  .team h2{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.02em;margin-bottom:40px}
+  .tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .tmember img{aspect-ratio:1/1;object-fit:cover;border-radius:12px;filter:grayscale(1);transition:filter .4s}
+  .tmember:hover img{filter:grayscale(0)}
+  .tmember .nm{font-size:17px;font-weight:600;margin-top:14px}
+  .tmember .ro{font-size:13px;color:var(--muted)}
+
+  /* similar */
+  .similar{padding:90px 0;border-top:1px solid var(--line)}
+  .similar h3{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:24px}
+  .similar .row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .similar a{border:1px solid var(--line);border-radius:14px;padding:24px;transition:transform .2s,box-shadow .2s}
+  .similar a:hover{transform:translateY(-3px);box-shadow:0 4px 20px rgba(0,0,0,.05)}
+  .similar .nm{font-size:18px;font-weight:600}.similar .ds{font-size:14px;color:var(--muted);margin-top:6px}.similar .go{font-size:13px;color:#2563a8;margin-top:14px}
+
   .contact{text-align:center;padding:120px 0;border-top:1px solid var(--line)}
   .contact h2{font-size:clamp(32px,5vw,60px);font-weight:600;letter-spacing:-.03em}
-  .btn{display:inline-block;margin-top:30px;padding:14px 30px;background:var(--ink);color:#fff;border-radius:6px;font-size:15px;transition:background .2s,transform .2s}
+  .btn{display:inline-block;margin-top:28px;padding:14px 30px;background:var(--ink);color:#fff;border-radius:8px;font-size:15px;transition:background .2s,transform .15s}
   .btn:hover{background:#333}.btn:active{transform:scale(.98)}
   footer{border-top:1px solid var(--line);padding:40px 48px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;color:var(--muted);font-size:13.5px}
+
+  /* lightbox */
+  .lb{position:fixed;inset:0;background:rgba(10,10,10,.92);z-index:300;display:none;align-items:center;justify-content:center;padding:40px}
+  .lb.open{display:flex}
+  .lb img{max-width:90vw;max-height:78vh;border-radius:8px;object-fit:contain}
+  .lb .info{position:absolute;bottom:30px;left:0;right:0;text-align:center;color:#fff}
+  .lb .info .t{font-size:20px;font-weight:600}.lb .info .m{font-size:14px;opacity:.7;margin-top:4px}
+  .lb .x{position:absolute;top:24px;right:30px;color:#fff;font-size:30px;cursor:pointer;line-height:1;opacity:.8}
+  .lb .x:hover{opacity:1}
+  .lb .arw{position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:40px;cursor:pointer;opacity:.6;user-select:none;padding:20px}
+  .lb .arw:hover{opacity:1}.lb .prev{left:10px}.lb .next{right:10px}
 
   .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
   .reveal.in{opacity:1;transform:none}
 
-  @media(max-width:820px){
-    .wrap{padding:0 24px}.nav{padding:18px 24px}.nav ul{display:none}
-    .intro{padding:70px 0 40px}
-    .grid{grid-template-columns:1fr}.tile.wide{grid-column:span 1}
-    .about{grid-template-columns:1fr;gap:34px;padding:70px 0}
+  @media(max-width:860px){
+    .wrap{padding:0 22px}.nav{padding:16px 22px}.nav ul{display:none}
+    .grid{grid-template-columns:1fr}.tile,.tile.w3,.tile.w4{grid-column:span 1}
+    .about{grid-template-columns:1fr;gap:32px;padding:70px 0}
+    .tgrid{grid-template-columns:1fr 1fr}.similar .row{grid-template-columns:1fr}
+    .filters{position:static}
   }
 </style>
 </head>
 <body>
   <nav class="nav">
     <div class="brand">MERIDIAN</div>
-    <ul><li><a href="#work">Work</a></li><li><a href="#studio">Studio</a></li><li><a href="#contact">Contact</a></li></ul>
+    <ul><li><a href="#work">Work</a></li><li><a href="#studio">Studio</a></li><li><a href="#team">Team</a></li><li><a href="#contact">Contact</a></li></ul>
+    <div class="av"><b></b>Available 2026</div>
   </nav>
 
   <div class="wrap">
     <section class="intro">
       <h1 class="reveal">A construction and architecture studio building calm, lasting spaces.</h1>
-      <div class="row">
-        <p class="reveal">Residential, civic and workplace projects — designed and built end to end by a single team.</p>
-        <div class="avail reveal"><b></b>Available for 2026 commissions</div>
+      <div class="r"><p class="reveal">Residential, civic and workplace projects — designed and built end to end by a single team.</p></div>
+    </section>
+
+    <!-- FILTER + GRID -->
+    <section id="work">
+      <div class="filters reveal">
+        <button class="on" data-f="all">All</button>
+        <button data-f="residential">Residential</button>
+        <button data-f="civic">Civic</button>
+        <button data-f="workplace">Workplace</button>
+        <span class="count" id="count"></span>
+      </div>
+      <div class="grid" id="grid">
+        <div class="tile w4" data-cat="residential" data-img="../assets/house-modern-1.jpg"><div class="ph"><img src="../assets/house-modern-1.jpg" alt="Hollowell House"></div><div class="ov"><div class="t">Hollowell House</div><div class="m">Residential · 2023</div></div></div>
+        <div class="tile" data-cat="civic" data-img="../assets/interior-1.jpg"><div class="ph"><img src="../assets/interior-1.jpg" alt="The Reading Rooms"></div><div class="ov"><div class="t">The Reading Rooms</div><div class="m">Civic · 2017</div></div></div>
+        <div class="tile" data-cat="civic" data-img="../assets/arch-white-1.jpg"><div class="ph"><img src="../assets/arch-white-1.jpg" alt="St Bride Pavilion"></div><div class="ov"><div class="t">St. Bride Pavilion</div><div class="m">Civic · 2021</div></div></div>
+        <div class="tile" data-cat="workplace" data-img="../assets/interior-office-1.jpg"><div class="ph"><img src="../assets/interior-office-1.jpg" alt="Quay Street Workshops"></div><div class="ov"><div class="t">Quay Street Workshops</div><div class="m">Workplace · 2022</div></div></div>
+        <div class="tile" data-cat="residential" data-img="../assets/house-white-1.jpg"><div class="ph"><img src="../assets/house-white-1.jpg" alt="Northgate Terraces"></div><div class="ov"><div class="t">Northgate Terraces</div><div class="m">Residential · 2019</div></div></div>
+        <div class="tile w3" data-cat="workplace" data-img="../assets/facade-3.jpg"><div class="ph"><img src="../assets/facade-3.jpg" alt="Maltings Studios"></div><div class="ov"><div class="t">The Maltings Studios</div><div class="m">Workplace · 2020</div></div></div>
+        <div class="tile w3" data-cat="residential" data-img="../assets/house-2.jpg"><div class="ph"><img src="../assets/house-2.jpg" alt="Cliff House"></div><div class="ov"><div class="t">Cliff House</div><div class="m">Residential · 2024</div></div></div>
+        <div class="tile" data-cat="civic" data-img="../assets/facade-4.jpg"><div class="ph"><img src="../assets/facade-4.jpg" alt="Market Hall"></div><div class="ov"><div class="t">Market Hall</div><div class="m">Civic · 2018</div></div></div>
+        <div class="tile" data-cat="workplace" data-img="../assets/interior-3.jpg"><div class="ph"><img src="../assets/interior-3.jpg" alt="Foundry Offices"></div><div class="ov"><div class="t">Foundry Offices</div><div class="m">Workplace · 2021</div></div></div>
       </div>
     </section>
 
-    <section class="grid" id="work">
-      <a class="tile wide reveal"><img src="../assets/house-modern-1.jpg" alt="Hollowell House exterior"><div class="cap"><span class="t">Hollowell House</span><span class="m">Residential · 2023</span></div></a>
-      <a class="tile reveal"><img src="../assets/interior-1.jpg" alt="Reading Rooms interior"><div class="cap"><span class="t">The Reading Rooms</span><span class="m">Civic · 2017</span></div></a>
-      <a class="tile reveal"><img src="../assets/arch-white-1.jpg" alt="St. Bride Pavilion"><div class="cap"><span class="t">St. Bride Pavilion</span><span class="m">Civic · 2021</span></div></a>
-      <a class="tile reveal"><img src="../assets/interior-office-1.jpg" alt="Quay Street Workshops"><div class="cap"><span class="t">Quay Street Workshops</span><span class="m">Workplace · 2022</span></div></a>
-      <a class="tile reveal"><img src="../assets/house-white-1.jpg" alt="Northgate Terraces"><div class="cap"><span class="t">Northgate Terraces</span><span class="m">Residential · 2019</span></div></a>
-    </section>
-
+    <!-- ABOUT -->
     <section class="about" id="studio">
       <div>
         <h2 class="reveal">Forty years of building things that stay built.</h2>
         <p class="reveal">We keep design and construction under one roof, so the drawing and the building never drift apart. Every project is run by the people who designed it.</p>
-        <div class="stats">
-          <div class="reveal"><div class="n">320+</div><div class="l">Projects delivered</div></div>
-          <div class="reveal"><div class="n">98%</div><div class="l">On-time completion</div></div>
-          <div class="reveal"><div class="n">12</div><div class="l">Design awards</div></div>
-          <div class="reveal"><div class="n">1984</div><div class="l">Founded</div></div>
+        <div class="st">
+          <div class="reveal"><div class="n" data-count="320" data-suffix="+">0</div><div class="l">Projects delivered</div></div>
+          <div class="reveal"><div class="n" data-count="98" data-suffix="%">0</div><div class="l">On-time completion</div></div>
+          <div class="reveal"><div class="n" data-count="12">0</div><div class="l">Design awards</div></div>
+          <div class="reveal"><div class="n" data-count="40">0</div><div class="l">Years building</div></div>
         </div>
       </div>
       <div class="img reveal"><img src="../assets/arch-detail-1.jpg" alt="Architectural detail"></div>
+    </section>
+
+    <!-- TEAM -->
+    <section class="team" id="team">
+      <h2 class="reveal">The people who'll build it.</h2>
+      <div class="tgrid">
+        <div class="tmember reveal"><img src="../assets/team-1.jpg" alt="Director"><div class="nm">Adèle Marchetti</div><div class="ro">Founding Director, Architect</div></div>
+        <div class="tmember reveal"><img src="../assets/team-meeting-1.jpg" alt="Construction lead"><div class="nm">Tomas Reyes</div><div class="ro">Head of Construction</div></div>
+        <div class="tmember reveal"><img src="../assets/construction-worker-1.jpg" alt="Site director"><div class="nm">Niall O'Brien</div><div class="ro">Site Director</div></div>
+        <div class="tmember reveal"><img src="../assets/interior-2.jpg" alt="Interiors lead"><div class="nm">Priya Anand</div><div class="ro">Head of Interiors</div></div>
+      </div>
+    </section>
+
+    <!-- SIMILAR -->
+    <section class="similar">
+      <h3 class="reveal">Portfolios in a similar spirit</h3>
+      <div class="row">
+        <a class="reveal" href="https://anderssonwise.com" target="_blank" rel="noopener"><div class="nm">Andersson-Wise</div><div class="ds">Clean white grid, imagery-led portfolio.</div><div class="go">anderssonwise.com ↗</div></a>
+        <a class="reveal" href="https://www.fosterandpartners.com" target="_blank" rel="noopener"><div class="nm">Foster + Partners</div><div class="ds">Deep, filterable body of work.</div><div class="go">fosterandpartners.com ↗</div></a>
+        <a class="reveal" href="https://www.mvrdv.com" target="_blank" rel="noopener"><div class="nm">MVRDV</div><div class="ds">Rich project grid with strong categorisation.</div><div class="go">mvrdv.com ↗</div></a>
+      </div>
     </section>
 
     <section class="contact" id="contact">
@@ -111,13 +185,44 @@
   </div>
 
   <footer>
-    <div>MERIDIAN — Construction &amp; Architecture</div>
+    <div>MERIDIAN — Construction &amp; Architecture · © 2026</div>
     <div>hello@meridian-build.com · +1 (000) 000-0000</div>
   </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lb" id="lb">
+    <span class="x" id="lbx">×</span>
+    <span class="arw prev" id="lbp">‹</span>
+    <img id="lbimg" src="" alt="">
+    <span class="arw next" id="lbn">›</span>
+    <div class="info"><div class="t" id="lbt"></div><div class="m" id="lbm"></div></div>
+  </div>
 
 <script>
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  // count up
+  const cio=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){const el=e.target.querySelector('[data-count]');if(el&&!el.dataset.done){el.dataset.done=1;const t=+el.dataset.count,suf=el.dataset.suffix||'';let c=0,st=Math.max(1,Math.round(t/45));(function tk(){c=Math.min(t,c+st);el.textContent=c+suf;if(c<t)requestAnimationFrame(tk);})();}cio.unobserve(e.target);}})},{threshold:.5});
+  document.querySelectorAll('.about .st > div').forEach(d=>cio.observe(d));
+
+  // filter
+  const tiles=[...document.querySelectorAll('.tile')], cnt=document.getElementById('count');
+  function applyFilter(f){let n=0;tiles.forEach(t=>{const show=f==='all'||t.dataset.cat===f;t.classList.toggle('hide',!show);if(show)n++;});cnt.textContent=n+' project'+(n>1?'s':'');}
+  document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('on'));b.classList.add('on');applyFilter(b.dataset.f);}));
+  applyFilter('all');
+
+  // lightbox
+  const lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg'),lbt=document.getElementById('lbt'),lbm=document.getElementById('lbm');
+  let cur=0;function visibleTiles(){return tiles.filter(t=>!t.classList.contains('hide'));}
+  function openLb(t){const v=visibleTiles();cur=v.indexOf(t);show(v[cur]);lb.classList.add('open');}
+  function show(t){lbimg.src=t.dataset.img;lbt.textContent=t.querySelector('.ov .t').textContent;lbm.textContent=t.querySelector('.ov .m').textContent;}
+  function step(d){const v=visibleTiles();cur=(cur+d+v.length)%v.length;show(v[cur]);}
+  tiles.forEach(t=>t.addEventListener('click',()=>openLb(t)));
+  document.getElementById('lbx').onclick=()=>lb.classList.remove('open');
+  document.getElementById('lbn').onclick=e=>{e.stopPropagation();step(1);};
+  document.getElementById('lbp').onclick=e=>{e.stopPropagation();step(-1);};
+  lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open');});
+  addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1);});
 </script>
 </body>
 </html>
