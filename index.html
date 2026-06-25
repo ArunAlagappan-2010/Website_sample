@@ -3,179 +3,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vishkar Interiors — Website Concepts</title>
+<title>Vishkar Interiors</title>
 <style>
   :root{
-    --ink:#0b0b0b; --soft:#727272; --line:#e7e7e7; --bg:#ffffff; --pearl:#f5f5f5;
+    --ink:#141414; --soft:#8a8a8a; --line:#e6e6e3;
     --sans:'SF Pro Display','Helvetica Neue','Segoe UI',Arial,sans-serif;
     --mono:'SF Mono','JetBrains Mono','Consolas',monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  img{display:block;width:100%;height:auto}
-  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  html,body{height:100%;overflow:hidden}
+  body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;
+       background:#fcfcfb;}
+
+  /* paper texture — white with very light grey grain */
+  .paper{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(120% 120% at 50% 0%, #ffffff 0%, #f6f6f4 100%);}
+  .paper::after{content:"";position:absolute;inset:0;opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.06'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
   /* LOADER */
-  .loader{position:fixed;inset:0;z-index:9999;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .7s,visibility .7s}
+  .loader{position:fixed;inset:0;z-index:50;background:#fcfcfb;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .8s,visibility .8s}
   .loader.done{opacity:0;visibility:hidden}
-  .loader .mk{text-align:center;opacity:0;transform:translateY(10px);animation:lin .9s cubic-bezier(.16,1,.3,1) .1s forwards}
-  .loader .mk b{font-size:clamp(26px,5vw,42px);font-weight:600;letter-spacing:.22em;color:var(--ink)}
-  .loader .mk span{display:block;font-size:11px;font-weight:300;letter-spacing:.46em;color:var(--soft);margin-top:12px;padding-left:.46em}
-  .loader .ln{width:170px;height:2px;background:var(--line);overflow:hidden;border-radius:2px}
-  .loader .ln i{display:block;height:100%;width:0;background:var(--ink);animation:lfill 1.3s ease forwards}
-  @keyframes lin{to{opacity:1;transform:none}}@keyframes lfill{to{width:100%}}
+  .loader b{font-size:clamp(22px,4vw,30px);font-weight:600;letter-spacing:.34em;padding-left:.34em;color:var(--ink);opacity:0;animation:fin .9s ease .1s forwards}
+  .loader .ln{width:140px;height:1px;background:var(--line);overflow:hidden}
+  .loader .ln i{display:block;height:100%;width:0;background:var(--ink);animation:ffill 1.2s ease forwards}
+  @keyframes fin{to{opacity:1}}@keyframes ffill{to{width:100%}}
 
-  header.top{border-bottom:1px solid var(--line)}
-  .top .wrap{display:flex;justify-content:space-between;align-items:center;padding:20px 40px}
-  .brand{font-weight:600;font-size:17px;letter-spacing:.16em}
-  .brand span{color:var(--soft);font-weight:300}
-  .top .meta{font-family:var(--mono);font-size:12px;color:var(--soft)}
+  /* TOP BAR (no dropdowns) */
+  .bar{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:30px 44px}
+  .brand{font-weight:600;font-size:16px;letter-spacing:.26em}
+  .brand i{font-style:normal;font-weight:300;color:var(--soft)}
+  .bar .r{display:flex;align-items:center;gap:28px;font-size:12.5px;letter-spacing:.04em;color:var(--soft)}
+  .bar .r a{color:var(--ink);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .25s}
+  .bar .r a:hover{border-color:var(--ink)}
+  .bar .tag{font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em}
 
-  .hero{padding:84px 0 30px}
-  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin-bottom:22px}
-  .hero h1{font-size:clamp(38px,6vw,72px);font-weight:600;letter-spacing:-.03em;line-height:1.04;max-width:18ch}
-  .hero p{margin-top:22px;max-width:64ch;font-size:18px;color:var(--soft)}
-  .legend{margin-top:28px;display:flex;flex-wrap:wrap;gap:9px}
-  .pill{font-family:var(--mono);font-size:11px;letter-spacing:.03em;text-transform:uppercase;color:#444;background:var(--pearl);border:1px solid var(--line);border-radius:980px;padding:6px 13px}
+  /* SLIDESHOW */
+  .show{position:fixed;inset:0;z-index:10}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease}
+  .slide.on{opacity:1}
+  .frame{position:absolute;inset:96px 44px 110px;display:flex;align-items:center;justify-content:center}
+  .frame img{max-width:100%;max-height:100%;object-fit:contain;
+    mix-blend-mode:multiply;
+    transform:scale(1.0);transition:transform 8s ease}
+  .slide.on .frame img{transform:scale(1.035)}
 
-  .cat{padding:56px 0 10px}
-  .cat-h{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:32px}
-  .cat-h h2{font-size:21px;font-weight:600}
-  .cat-h .d{margin-left:auto;font-size:14px;color:var(--soft)}
+  /* caption */
+  .meta{position:fixed;left:44px;bottom:40px;z-index:30}
+  .meta .no{font-family:var(--mono);font-size:12px;color:var(--soft);letter-spacing:.08em;margin-bottom:10px}
+  .meta .t{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.02em;line-height:1.05}
+  .meta .s{font-family:var(--mono);font-size:12.5px;color:var(--soft);letter-spacing:.06em;margin-top:8px;text-transform:uppercase}
 
-  .row{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-  .card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;transition:box-shadow .25s,transform .25s;display:flex;flex-direction:column}
-  .card:hover{box-shadow:0 6px 26px rgba(0,0,0,.07);transform:translateY(-3px)}
-  .card .shot{aspect-ratio:16/10;overflow:hidden;background:var(--pearl);border-bottom:1px solid var(--line)}
-  .card .shot img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.16,1,.3,1)}
-  .card:hover .shot img{transform:scale(1.04)}
-  .card .body{padding:22px 24px 24px}
-  .card .body .k{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--soft)}
-  .card .body h3{font-size:21px;font-weight:600;margin-top:9px}
-  .card .body p{margin-top:8px;font-size:15px;color:var(--soft);line-height:1.55}
-  .card .body .open{display:inline-flex;align-items:center;gap:7px;margin-top:17px;font-size:14px;font-weight:500}
-  .card .body .open::after{content:"\2192";transition:transform .2s}
-  .card:hover .body .open::after{transform:translateX(4px)}
+  /* progress dots */
+  .dots{position:fixed;right:44px;bottom:44px;z-index:30;display:flex;gap:10px;align-items:center}
+  .dots button{width:26px;height:2px;border:none;background:var(--line);cursor:pointer;padding:0;position:relative;overflow:hidden}
+  .dots button i{position:absolute;inset:0;width:0;background:var(--ink)}
+  .dots button.on i{width:100%;transition:width 5s linear}
 
-  .refs{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:6px}
-  .ref{display:grid;grid-template-columns:30px 1fr auto;gap:18px;align-items:center;padding:18px 24px;border-bottom:1px solid var(--line);transition:background .2s}
-  .ref:last-child{border-bottom:none}.ref:hover{background:var(--pearl)}
-  .ref .no{font-family:var(--mono);font-size:13px;color:var(--soft)}
-  .ref .nm{font-size:17px;font-weight:600}.ref .ds{font-size:14px;color:var(--soft);margin-top:2px}
-  .ref .go{font-family:var(--mono);font-size:12px;color:#0b0b0b;white-space:nowrap}
-
-  footer{margin-top:74px;border-top:1px solid var(--line)}
-  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:38px 40px;color:var(--soft);font-size:13px}
-
-  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
-  .reveal.in{opacity:1;transform:none}
-
-  @media(max-width:760px){
-    .wrap,.top .wrap,footer .wrap{padding-left:22px;padding-right:22px}
-    .top .meta{display:none}.row{grid-template-columns:1fr;gap:18px}
-    .cat-h .d{display:none}.ref{grid-template-columns:24px 1fr}.ref .go{grid-column:2}
+  @media(max-width:720px){
+    .bar{padding:22px}.bar .tag{display:none}
+    .frame{inset:86px 22px 130px}
+    .meta{left:22px;bottom:30px}.dots{right:22px;bottom:30px}
   }
 </style>
 </head>
 <body>
-  <div class="loader" id="loader"><div class="mk"><b>VISHKAR</b><span>INTERIORS</span></div><div class="ln"><i></i></div></div>
+  <div class="paper"></div>
 
-  <header class="top"><div class="wrap"><div class="brand">VISHKAR<span> · INTERIORS</span></div><div class="meta">6 concepts · choose a direction</div></div></header>
+  <div class="loader" id="loader"><b>VISHKAR</b><div class="ln"><i></i></div></div>
 
-  <div class="wrap">
-    <section class="hero">
-      <div class="eyebrow reveal">Interior Design Studio — Website Concepts</div>
-      <h1 class="reveal">Six minimal directions for Vishkar Interiors.</h1>
-      <p class="reveal">Six genuinely different <b>layout structures</b> — not one design in six colours. They differ in where the navigation sits (top-centre, a left rail, right-aligned), which way the page scrolls (down, sideways, full-screen snap), and how content is positioned (centred, two-pane, broken grid). Each also has its <b>own loading animation</b>. Shared throughout: black-and-white, Apple-minimal, sleek dropdown nav across all six menus, and booking a consultation as the primary action. Open any card to explore it, then tell us which to take forward.</p>
-      <div class="legend reveal">
-        <span class="pill">6 distinct structures</span>
-        <span class="pill">Black &amp; white</span>
-        <span class="pill">Sleek dropdown nav</span>
-        <span class="pill">A different loader each</span>
-        <span class="pill">Booking-led</span>
-        <span class="pill">6 menus</span>
-      </div>
-    </section>
+  <header class="bar">
+    <div class="brand">VISHKAR <i>INTERIORS</i></div>
+    <div class="r">
+      <span class="tag">Selected Work</span>
+      <a href="mailto:vishkar.interiors@gmail.com">Enquire</a>
+    </div>
+  </header>
 
-    <section class="cat">
-      <div class="cat-h reveal"><h2>Vertical &amp; familiar</h2><span class="d">Nav position changes</span></div>
-      <div class="row">
-        <a class="card reveal" href="concept-1-product/index.html">
-          <div class="shot"><img src="assets/v-living-1.jpg" alt="Centered Classic preview"></div>
-          <div class="body"><div class="k">Concept 01 · top-center nav · scroll ↓</div><h3>Centered Classic</h3>
-            <p>Logo-left top nav, centered hero, sections stacked vertically — the safe, familiar Apple layout. <b>Loader:</b> the logo's letters stagger in.</p>
-            <span class="open">Open concept</span></div>
-        </a>
-        <a class="card reveal" href="concept-2-editorial/index.html">
-          <div class="shot"><img src="assets/v-lounge-1.jpg" alt="Left Rail preview"></div>
-          <div class="body"><div class="k">Concept 02 · left vertical nav · scroll ↓</div><h3>Fixed Left Rail</h3>
-            <p>A vertical sidebar nav fixed on the left (with inline expanding dropdowns); content scrolls past it on the right. <b>Loader:</b> a line draws down, then wipes left.</p>
-            <span class="open">Open concept</span></div>
-        </a>
-      </div>
-    </section>
+  <main class="show" id="show">
+    <div class="slide on"><div class="frame"><img src="assets/ink/v-minimal-1.jpg" alt="The Atelier — pen &amp; ink"></div></div>
+    <div class="slide"><div class="frame"><img src="assets/ink/v-living-2.jpg" alt="Eastgate Apartment — pen &amp; ink"></div></div>
+    <div class="slide"><div class="frame"><img src="assets/ink/v-lounge-1.jpg" alt="Brook Lounge — pen &amp; ink"></div></div>
+    <div class="slide"><div class="frame"><img src="assets/ink/v-bedroom-1.jpg" alt="Hill House — pen &amp; ink"></div></div>
+    <div class="slide"><div class="frame"><img src="assets/ink/v-dining-1.jpg" alt="Quay Dining Room — pen &amp; ink"></div></div>
+    <div class="slide"><div class="frame"><img src="assets/ink/v-studio-1.jpg" alt="Foundry Studio — pen &amp; ink"></div></div>
+  </main>
 
-    <section class="cat">
-      <div class="cat-h reveal"><h2>Re-thought scroll</h2><span class="d">The page moves differently</span></div>
-      <div class="row">
-        <a class="card reveal" href="concept-3-swiss-grid/index.html">
-          <div class="shot"><img src="assets/v-hero-1.jpg" alt="Split-Screen preview"></div>
-          <div class="body"><div class="k">Concept 03 · two-pane · one fixed</div><h3>Split-Screen Diptych</h3>
-            <p>A fixed image/booking pane on the left; the right side scrolls and the left image swaps to match each section. <b>Loader:</b> two panels part to reveal the page.</p>
-            <span class="open">Open concept</span></div>
-        </a>
-        <a class="card reveal" href="concept-4-cinematic/index.html">
-          <div class="shot"><img src="assets/v-living-3.jpg" alt="Horizontal Scroll preview"></div>
-          <div class="body"><div class="k">Concept 04 · scroll → sideways</div><h3>Horizontal Scroll</h3>
-            <p>Scroll down and the page moves sideways, panel by panel, with a progress bar and pager dots. <b>Loader:</b> a marker sweeps across, then wipes right.</p>
-            <span class="open">Open concept</span></div>
-        </a>
-      </div>
-    </section>
-
-    <section class="cat">
-      <div class="cat-h reveal"><h2>Immersive &amp; expressive</h2><span class="d">Full-screen and off-grid</span></div>
-      <div class="row">
-        <a class="card reveal" href="concept-5-studio/index.html">
-          <div class="shot"><img src="assets/v-kitchen-3.jpg" alt="Snap Deck preview"></div>
-          <div class="body"><div class="k">Concept 05 · 100vh panels · side dots</div><h3>Fullscreen Snap Deck</h3>
-            <p>One full-screen panel at a time with side-dot navigation — an immersive slide-deck that snaps as you scroll. <b>Loader:</b> a 0–100% counter on black.</p>
-            <span class="open">Open concept</span></div>
-        </a>
-        <a class="card reveal" href="concept-6-typographic/index.html">
-          <div class="shot"><img src="assets/v-minimal-1.jpg" alt="Asymmetric preview"></div>
-          <div class="body"><div class="k">Concept 06 · right nav · broken grid</div><h3>Asymmetric Grid</h3>
-            <p>Right-aligned nav, a broken off-center grid, oversized type and staggered images. <b>Loader:</b> a black block with a counter wipes up.</p>
-            <span class="open">Open concept</span></div>
-        </a>
-      </div>
-    </section>
-
-    <section class="cat">
-      <div class="cat-h reveal"><h2>Reference studios (live, well-known)</h2><span class="d">Interior design sites we admire</span></div>
-      <div class="refs reveal">
-        <a class="ref" href="https://www.kellywearstler.com" target="_blank" rel="noopener"><span class="no">01</span><span><span class="nm">Kelly Wearstler</span><div class="ds">Bold, gallery-led interiors — close to Concept 05.</div></span><span class="go">kellywearstler.com ↗</span></a>
-        <a class="ref" href="https://vincentvanduysen.com" target="_blank" rel="noopener"><span class="no">02</span><span><span class="nm">Vincent Van Duysen</span><div class="ds">Warm minimalism, editorial pacing — close to Concept 02.</div></span><span class="go">vincentvanduysen.com ↗</span></a>
-        <a class="ref" href="https://studio-mcgee.com" target="_blank" rel="noopener"><span class="no">03</span><span><span class="nm">Studio McGee</span><div class="ds">Clean, photographic, booking-led — close to Concepts 01/05.</div></span><span class="go">studio-mcgee.com ↗</span></a>
-        <a class="ref" href="https://www.yabupushelberg.com" target="_blank" rel="noopener"><span class="no">04</span><span><span class="nm">Yabu Pushelberg</span><div class="ds">Refined, dark, luxurious — close to Concept 05.</div></span><span class="go">yabupushelberg.com ↗</span></a>
-        <a class="ref" href="https://roseuniacke.com" target="_blank" rel="noopener"><span class="no">05</span><span><span class="nm">Rose Uniacke</span><div class="ds">Quiet, restrained, beautifully spare — close to Concept 06.</div></span><span class="go">roseuniacke.com ↗</span></a>
-        <a class="ref" href="https://www.davidcollins.studio" target="_blank" rel="noopener"><span class="no">06</span><span><span class="nm">David Collins Studio</span><div class="ds">Elegant hospitality interiors, image-forward.</div></span><span class="go">davidcollins.studio ↗</span></a>
-        <a class="ref" href="https://1508london.com" target="_blank" rel="noopener"><span class="no">07</span><span><span class="nm">1508 London</span><div class="ds">High-end residential, calm gallery grids.</div></span><span class="go">1508london.com ↗</span></a>
-        <a class="ref" href="https://www.studioilse.com" target="_blank" rel="noopener"><span class="no">08</span><span><span class="nm">Studioilse — Ilse Crawford</span><div class="ds">Human, warm, editorial — close to Concept 02.</div></span><span class="go">studioilse.com ↗</span></a>
-        <a class="ref" href="https://www.kkaa.co.jp" target="_blank" rel="noopener"><span class="no">09</span><span><span class="nm">Kengo Kuma</span><div class="ds">Material-led, natural, minimal.</div></span><span class="go">kkaa.co.jp ↗</span></a>
-      </div>
-    </section>
+  <div class="meta">
+    <div class="no" id="mno">01 — 05</div>
+    <div class="t" id="mt">The Atelier</div>
+    <div class="s" id="ms">Studio · 2023</div>
   </div>
 
-  <footer><div class="wrap"><span>Vishkar Interiors — Website Concepts · Prepared for review</span><span>Black &amp; white · Placeholder copy · Photography for layout only</span></div></footer>
+  <div class="dots" id="dots"></div>
 
 <script>
   const hideLoader=()=>document.getElementById('loader').classList.add('done');
-  window.addEventListener('load',()=>setTimeout(hideLoader,900));setTimeout(hideLoader,2500);
-  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  window.addEventListener('load',()=>setTimeout(hideLoader,1100));setTimeout(hideLoader,2600);
+
+  const data=[
+    {t:'The Atelier',        s:'Studio · 2023'},
+    {t:'Eastgate Apartment', s:'Living · 2024'},
+    {t:'Brook Lounge',       s:'Living · 2023'},
+    {t:'Hill House',         s:'Bedroom · 2024'},
+    {t:'Quay Dining Room',   s:'Dining · 2024'},
+    {t:'Foundry Studio',     s:'Workspace · 2022'},
+  ];
+  const slides=[...document.querySelectorAll('.slide')],dots=document.getElementById('dots');
+  const mno=document.getElementById('mno'),mt=document.getElementById('mt'),ms=document.getElementById('ms');
+  let i=0,timer;
+  slides.forEach((s,k)=>{const b=document.createElement('button');b.innerHTML='<i></i>';if(k===0)b.classList.add('on');b.onclick=()=>go(k);dots.appendChild(b);});
+  function paint(){
+    slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+    [...dots.children].forEach((d,k)=>{d.classList.remove('on');void d.offsetWidth;d.classList.toggle('on',k===i);});
+    mno.textContent='0'+(i+1)+' — 0'+slides.length;mt.textContent=data[i].t;ms.textContent=data[i].s;
+  }
+  function go(k){i=(k+slides.length)%slides.length;paint();restart();}
+  function next(){go(i+1);}
+  function restart(){clearInterval(timer);timer=setInterval(next,5000);}
+  paint();restart();
+  addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(i+1);if(e.key==='ArrowLeft')go(i-1);});
 </script>
 </body>
 </html>
