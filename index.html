@@ -47,19 +47,17 @@
   .burger{display:none;background:none;border:none;font-size:24px;color:#fff}
 
   /* FULLSCREEN SLIDESHOW */
-  .show{position:fixed;inset:0;z-index:10;background:#0b0b0b}
-  .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.5s ease}
+  .show{position:fixed;inset:0;z-index:10;background:#888}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity .42s ease}
   .slide.on{opacity:1}
-  /* Alternating horizontal pan — odd slides drift L→R, even R→L */
-  .slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.05) translateX(-2%);transition:transform 8s ease}
-  .slide.on img{transform:scale(1.05) translateX(2%)}
-  .slide:nth-child(even) img{transform:scale(1.05) translateX(2%)}
-  .slide:nth-child(even).on img{transform:scale(1.05) translateX(-2%)}
-  /* top dark vignette for nav legibility; bottom for caption */
-  .show::before{content:"";position:absolute;left:0;right:0;top:0;height:180px;z-index:3;pointer-events:none;
-    background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 100%)}
+  /* Very subtle single-direction drift — all slides creep left→right */
+  .slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.02) translateX(0%);transition:transform 10s ease}
+  .slide.on img{transform:scale(1.02) translateX(0.7%)}
+  /* Soft grey veil at top so transparent nav stays legible */
+  .show::before{content:"";position:absolute;left:0;right:0;top:0;height:110px;z-index:3;pointer-events:none;
+    background:linear-gradient(180deg,rgba(30,30,30,.32) 0%,rgba(0,0,0,0) 100%)}
   .show::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
-    background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.5) 100%)}
+    background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.48) 100%)}
 
   /* ONE-WORD CAPTION — bottom left */
   .word{position:fixed;left:44px;bottom:46px;z-index:30;color:#fff;
@@ -132,17 +130,27 @@
   const slides=[...document.querySelectorAll('.slide')];
   const dotEls=[...document.querySelectorAll('.dot')];
   const word=document.getElementById('word');
-  let i=0,timer;
-  function paint(){
-    slides.forEach((s,k)=>s.classList.toggle('on',k===i));
-    dotEls.forEach((d,k)=>d.classList.toggle('on',k===i));
+  let i=0,timer,goTimer;
+
+  // Sequenced: fade out → grey hold → fade in next
+  function go(k){
+    const prev=i;
+    i=(k+slides.length)%slides.length;
+    slides[prev].classList.remove('on');
     word.classList.remove('in');
-    setTimeout(()=>{word.textContent=words[i];word.classList.add('in');},260);
+    clearTimeout(goTimer);
+    goTimer=setTimeout(()=>{
+      slides[i].classList.add('on');
+      dotEls.forEach((d,j)=>d.classList.toggle('on',j===i));
+      setTimeout(()=>{word.textContent=words[i];word.classList.add('in');},180);
+    },460);
+    restart();
   }
-  function go(k){i=(k+slides.length)%slides.length;paint();restart();}
-  function restart(){clearInterval(timer);timer=setInterval(()=>go(i+1),5000);}
-  // first run
-  paint();restart();
+  function restart(){clearInterval(timer);timer=setInterval(()=>go(i+1),5500);}
+
+  // Initial state (HTML already shows slide 0 + dot 0)
+  word.textContent=words[0];word.classList.add('in');
+  restart();
   addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(i+1);if(e.key==='ArrowLeft')go(i-1);});
 </script>
 </body>
