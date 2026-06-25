@@ -70,10 +70,6 @@
   .dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.3);transition:background .45s,transform .45s;cursor:default}
   .dot.on{background:rgba(255,255,255,.88);transform:scale(1.4)}
 
-  /* slim bottom progress */
-  .prog{position:fixed;left:0;right:0;bottom:0;height:2px;z-index:30;background:rgba(255,255,255,.18)}
-  .prog i{display:block;height:100%;width:0;background:rgba(255,255,255,.9)}
-  .prog i.run{width:100%;transition:width 5s linear}
 
   @media(max-width:760px){
     .nav{padding:0 20px;height:62px}.menu{display:none}.burger{display:block}
@@ -127,7 +123,6 @@
 
   <div class="dots" id="dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
   <div class="word in" id="word">Light</div>
-  <div class="prog" id="prog"><i id="progi"></i></div>
 
 <script>
   const hideLoader=()=>document.getElementById('loader').classList.add('done');
@@ -136,14 +131,13 @@
   const words=['Light','Still','Shelter','Grain','Depth','Form','Craft','Tone','Void','Ground'];
   const slides=[...document.querySelectorAll('.slide')];
   const dotEls=[...document.querySelectorAll('.dot')];
-  const word=document.getElementById('word'),progi=document.getElementById('progi');
+  const word=document.getElementById('word');
   let i=0,timer;
   function paint(){
     slides.forEach((s,k)=>s.classList.toggle('on',k===i));
     dotEls.forEach((d,k)=>d.classList.toggle('on',k===i));
     word.classList.remove('in');
     setTimeout(()=>{word.textContent=words[i];word.classList.add('in');},260);
-    progi.classList.remove('run');void progi.offsetWidth;progi.classList.add('run');
   }
   function go(k){i=(k+slides.length)%slides.length;paint();restart();}
   function restart(){clearInterval(timer);timer=setInterval(()=>go(i+1),5000);}
