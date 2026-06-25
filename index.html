@@ -33,7 +33,7 @@
 
   /* STATIC NAV BAR (old look, solid, never moves) */
   .nav{position:fixed;top:0;left:0;right:0;z-index:40;height:72px;display:flex;align-items:center;justify-content:space-between;
-       padding:0 40px;background:rgba(255,255,255,.94);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line)}
+       padding:0 40px;background:rgba(255,255,255,.78);backdrop-filter:saturate(200%) blur(22px);border-bottom:1px solid rgba(230,230,227,.6)}
   .brand{display:flex;align-items:center;gap:11px;height:100%}
   .brand .logo-img{height:46px;width:auto}
   .brand .fb{display:flex;align-items:center;gap:10px}
@@ -42,8 +42,6 @@
   .menu{display:flex;gap:4px;list-style:none}
   .menu a{display:block;padding:9px 14px;font-size:13.5px;color:#333;border-radius:7px;transition:background .2s,color .2s}
   .menu a:hover{background:#f3f2ef;color:var(--ink)}
-  .nav .enq{font-size:13px;letter-spacing:.04em;border:1px solid var(--ink);padding:9px 18px;border-radius:980px;transition:background .2s,color .2s}
-  .nav .enq:hover{background:var(--ink);color:#fff}
   .navright{display:flex;align-items:center;gap:18px}
   .burger{display:none;background:none;border:none;font-size:24px}
 
@@ -51,18 +49,21 @@
   .show{position:fixed;inset:0;z-index:10;background:#0b0b0b}
   .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.5s ease}
   .slide.on{opacity:1}
-  .slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.0);transition:transform 6.5s ease}
-  .slide.on img{transform:scale(1.06)}
+  .slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 7s ease}
+  .slide.on img{transform:scale(1.0)}
+  .show::before{content:"";position:absolute;left:0;right:0;top:0;height:130px;z-index:3;pointer-events:none;
+    background:linear-gradient(180deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,0) 100%)}
   .show::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
-    background:linear-gradient(180deg,rgba(0,0,0,.32) 0%,rgba(0,0,0,0) 24%,rgba(0,0,0,0) 55%,rgba(0,0,0,.55) 100%)}
+    background:linear-gradient(180deg,rgba(0,0,0,.18) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 52%,rgba(0,0,0,.52) 100%)}
 
   /* ONE-WORD CAPTION — bottom left */
   .word{position:fixed;left:44px;bottom:46px;z-index:30;color:#fff;
     font-size:clamp(40px,7vw,104px);font-weight:600;letter-spacing:-.03em;line-height:.9;
     text-shadow:0 2px 30px rgba(0,0,0,.5);opacity:0;transform:translateY(14px);transition:opacity .9s ease,transform .9s ease}
   .word.in{opacity:1;transform:none}
-  .count{position:fixed;left:46px;bottom:calc(46px + clamp(40px,7vw,104px) + 14px);z-index:30;
-    font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:rgba(255,255,255,.75);text-shadow:0 1px 10px rgba(0,0,0,.5)}
+  .dots{position:fixed;left:46px;bottom:calc(46px + clamp(40px,7vw,104px) + 18px);z-index:30;display:flex;gap:7px;align-items:center}
+  .dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.3);transition:background .45s,transform .45s;cursor:default}
+  .dot.on{background:rgba(255,255,255,.88);transform:scale(1.4)}
 
   /* slim bottom progress */
   .prog{position:fixed;left:0;right:0;bottom:0;height:2px;z-index:30;background:rgba(255,255,255,.18)}
@@ -70,10 +71,10 @@
   .prog i.run{width:100%;transition:width 5s linear}
 
   @media(max-width:760px){
-    .nav{padding:0 20px;height:62px}.menu,.nav .enq{display:none}.burger{display:block}
+    .nav{padding:0 20px;height:62px}.menu{display:none}.burger{display:block}
     .brand .logo-img{height:38px}
     .word{left:22px;bottom:30px}
-    .count{left:24px;bottom:calc(30px + clamp(40px,7vw,104px) + 12px)}
+    .dots{left:24px;bottom:calc(30px + clamp(40px,7vw,104px) + 14px)}
   }
 </style>
 </head>
@@ -97,55 +98,52 @@
       <ul class="menu">
         <li><a href="#">About Us</a></li>
         <li><a href="#">Services</a></li>
-        <li><a href="#">Our Portfolio</a></li>
+        <li><a href="#">Our Work</a></li>
         <li><a href="#">Office</a></li>
-        <li><a href="#">Careers</a></li>
         <li><a href="#">Contact Us</a></li>
       </ul>
-      <a class="enq" href="mailto:penandink.studio@gmail.com">Enquire</a>
       <button class="burger">≡</button>
     </div>
   </nav>
 
   <!-- SLIDESHOW -->
   <main class="show" id="show">
-    <div class="slide on"><img src="assets/mono/m02.jpg" alt=""></div>
-    <div class="slide"><img src="assets/mono/m14.jpg" alt=""></div>
-    <div class="slide"><img src="assets/mono/n04.jpg" alt=""></div>
-    <div class="slide"><img src="assets/mono/m03.jpg" alt=""></div>
-    <div class="slide"><img src="assets/mono/m01.jpg" alt=""></div>
-    <div class="slide"><img src="assets/mono/m11.jpg" alt=""></div>
-    <div class="slide"><img src="assets/mono/m10.jpg" alt=""></div>
-    <div class="slide"><img src="assets/mono/n02.jpg" alt=""></div>
-    <div class="slide"><img src="assets/mono/n03.jpg" alt=""></div>
-    <div class="slide"><img src="assets/mono/m09.jpg" alt=""></div>
+    <div class="slide on"><img src="assets/mono/i01.jpg" alt=""></div>
+    <div class="slide"><img src="assets/mono/i02.jpg" alt=""></div>
+    <div class="slide"><img src="assets/mono/i03.jpg" alt=""></div>
+    <div class="slide"><img src="assets/mono/i04.jpg" alt=""></div>
+    <div class="slide"><img src="assets/mono/i05.jpg" alt=""></div>
+    <div class="slide"><img src="assets/mono/i06.jpg" alt=""></div>
+    <div class="slide"><img src="assets/mono/i07.jpg" alt=""></div>
+    <div class="slide"><img src="assets/mono/i08.jpg" alt=""></div>
+    <div class="slide"><img src="assets/mono/i09.jpg" alt=""></div>
+    <div class="slide"><img src="assets/mono/i10.jpg" alt=""></div>
   </main>
 
-  <div class="count" id="count">01 / 10</div>
-  <div class="word in" id="word">Ascent</div>
+  <div class="dots" id="dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+  <div class="word in" id="word">Light</div>
   <div class="prog" id="prog"><i id="progi"></i></div>
 
 <script>
   const hideLoader=()=>document.getElementById('loader').classList.add('done');
   window.addEventListener('load',()=>setTimeout(hideLoader,1200));setTimeout(hideLoader,2800);
 
-  const words=['Ascent','Rise','Order','Edge','Curve','Flow','Rhythm','Mass','Form','Making'];
+  const words=['Light','Still','Shelter','Grain','Depth','Form','Craft','Tone','Void','Ground'];
   const slides=[...document.querySelectorAll('.slide')];
-  const word=document.getElementById('word'),count=document.getElementById('count'),progi=document.getElementById('progi');
+  const dotEls=[...document.querySelectorAll('.dot')];
+  const word=document.getElementById('word'),progi=document.getElementById('progi');
   let i=0,timer;
   function paint(){
     slides.forEach((s,k)=>s.classList.toggle('on',k===i));
-    count.textContent='0'.repeat(i+1<10?1:0)+(i+1)+' / 10';
-    // word transition
+    dotEls.forEach((d,k)=>d.classList.toggle('on',k===i));
     word.classList.remove('in');
     setTimeout(()=>{word.textContent=words[i];word.classList.add('in');},260);
-    // progress reset
     progi.classList.remove('run');void progi.offsetWidth;progi.classList.add('run');
   }
   function go(k){i=(k+slides.length)%slides.length;paint();restart();}
   function restart(){clearInterval(timer);timer=setInterval(()=>go(i+1),5000);}
   // first run
-  progi.classList.add('run');restart();
+  paint();restart();
   addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(i+1);if(e.key==='ArrowLeft')go(i-1);});
 </script>
 </body>
