@@ -3,37 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vishkar Interiors</title>
+<title>Pen and Ink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#141414; --soft:#8a8a8a; --line:#e6e6e3;
     --sans:'SF Pro Display','Helvetica Neue','Segoe UI',Arial,sans-serif;
     --mono:'SF Mono','JetBrains Mono','Consolas',monospace;
+    --script:'Great Vibes',cursive;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{height:100%;overflow:hidden}
-  body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;
-       background:#fcfcfb;}
+  body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;background:#fcfcfb;}
 
   /* paper texture — white with very light grey grain */
   .paper{position:fixed;inset:0;z-index:0;pointer-events:none;
-    background:
-      radial-gradient(120% 120% at 50% 0%, #ffffff 0%, #f6f6f4 100%);}
+    background:radial-gradient(120% 120% at 50% 0%, #ffffff 0%, #f6f6f4 100%);}
   .paper::after{content:"";position:absolute;inset:0;opacity:.5;mix-blend-mode:multiply;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.06'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
   /* LOADER */
   .loader{position:fixed;inset:0;z-index:50;background:#fcfcfb;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .8s,visibility .8s}
   .loader.done{opacity:0;visibility:hidden}
-  .loader b{font-size:clamp(22px,4vw,30px);font-weight:600;letter-spacing:.34em;padding-left:.34em;color:var(--ink);opacity:0;animation:fin .9s ease .1s forwards}
-  .loader .ln{width:140px;height:1px;background:var(--line);overflow:hidden}
+  .loader .mk{display:flex;align-items:center;gap:14px;opacity:0;animation:fin .9s ease .1s forwards}
+  .loader .mk svg{width:34px;height:auto;color:var(--ink)}
+  .loader .mk b{font-family:var(--script);font-size:clamp(40px,7vw,62px);font-weight:400}
+  .loader .sub{font-family:var(--mono);font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--soft);opacity:0;animation:fin .7s ease 1s forwards}
+  .loader .ln{width:150px;height:1px;background:var(--line);overflow:hidden;margin-top:4px}
   .loader .ln i{display:block;height:100%;width:0;background:var(--ink);animation:ffill 1.2s ease forwards}
   @keyframes fin{to{opacity:1}}@keyframes ffill{to{width:100%}}
 
   /* TOP BAR (no dropdowns) */
-  .bar{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:30px 44px}
-  .brand{font-weight:600;font-size:16px;letter-spacing:.26em}
-  .brand i{font-style:normal;font-weight:300;color:var(--soft)}
+  .bar{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:26px 44px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand svg{width:20px;height:auto;color:var(--ink)}
+  .brand .nm{font-family:var(--script);font-size:27px;line-height:1}
   .bar .r{display:flex;align-items:center;gap:28px;font-size:12.5px;letter-spacing:.04em;color:var(--soft)}
   .bar .r a{color:var(--ink);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .25s}
   .bar .r a:hover{border-color:var(--ink)}
@@ -43,9 +48,8 @@
   .show{position:fixed;inset:0;z-index:10}
   .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease}
   .slide.on{opacity:1}
-  .frame{position:absolute;inset:96px 44px 110px;display:flex;align-items:center;justify-content:center}
-  .frame img{max-width:100%;max-height:100%;object-fit:contain;
-    mix-blend-mode:multiply;
+  .frame{position:absolute;inset:100px 44px 116px;display:flex;align-items:center;justify-content:center}
+  .frame img{max-width:100%;max-height:100%;object-fit:contain;mix-blend-mode:multiply;
     transform:scale(1.0);transition:transform 8s ease}
   .slide.on .frame img{transform:scale(1.035)}
 
@@ -62,22 +66,32 @@
   .dots button.on i{width:100%;transition:width 5s linear}
 
   @media(max-width:720px){
-    .bar{padding:22px}.bar .tag{display:none}
-    .frame{inset:86px 22px 130px}
-    .meta{left:22px;bottom:30px}.dots{right:22px;bottom:30px}
+    .bar{padding:20px 22px}.bar .tag{display:none}
+    .frame{inset:88px 22px 132px}
+    .meta{left:22px;bottom:28px}.dots{right:22px;bottom:28px}
   }
 </style>
 </head>
 <body>
   <div class="paper"></div>
 
-  <div class="loader" id="loader"><b>VISHKAR</b><div class="ln"><i></i></div></div>
+  <div class="loader" id="loader">
+    <div class="mk">
+      <svg viewBox="0 0 70 92" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M 3,32 C 18,18 38,14 58,22 C 64,25 66,28 64,32" stroke="currentColor" stroke-width="7" stroke-linecap="round"/><path d="M 16,22 C 14,34 11,48 8,62 C 5,74 2,84 0,91" stroke="currentColor" stroke-width="6.5" stroke-linecap="round"/><path d="M 50,20 C 52,32 53,47 55,62 C 58,74 63,84 68,91" stroke="currentColor" stroke-width="6.5" stroke-linecap="round"/></svg>
+      <b>Pen and Ink</b>
+    </div>
+    <div class="sub">architecture · interiors · urbanism</div>
+    <div class="ln"><i></i></div>
+  </div>
 
   <header class="bar">
-    <div class="brand">VISHKAR <i>INTERIORS</i></div>
+    <div class="brand">
+      <svg viewBox="0 0 70 92" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M 3,32 C 18,18 38,14 58,22 C 64,25 66,28 64,32" stroke="currentColor" stroke-width="7" stroke-linecap="round"/><path d="M 16,22 C 14,34 11,48 8,62 C 5,74 2,84 0,91" stroke="currentColor" stroke-width="6.5" stroke-linecap="round"/><path d="M 50,20 C 52,32 53,47 55,62 C 58,74 63,84 68,91" stroke="currentColor" stroke-width="6.5" stroke-linecap="round"/></svg>
+      <span class="nm">Pen and Ink</span>
+    </div>
     <div class="r">
       <span class="tag">Selected Work</span>
-      <a href="mailto:vishkar.interiors@gmail.com">Enquire</a>
+      <a href="mailto:penandink.studio@gmail.com">Enquire</a>
     </div>
   </header>
 
@@ -91,7 +105,7 @@
   </main>
 
   <div class="meta">
-    <div class="no" id="mno">01 — 05</div>
+    <div class="no" id="mno">01 — 06</div>
     <div class="t" id="mt">The Atelier</div>
     <div class="s" id="ms">Studio · 2023</div>
   </div>
@@ -100,7 +114,7 @@
 
 <script>
   const hideLoader=()=>document.getElementById('loader').classList.add('done');
-  window.addEventListener('load',()=>setTimeout(hideLoader,1100));setTimeout(hideLoader,2600);
+  window.addEventListener('load',()=>setTimeout(hideLoader,1300));setTimeout(hideLoader,2800);
 
   const data=[
     {t:'The Atelier',        s:'Studio · 2023'},

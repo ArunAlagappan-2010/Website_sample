@@ -1,8 +1,8 @@
-# Vishkar Interiors
+# Pen and Ink
 
-A single landing page for **Vishkar Interiors** — a full-screen, auto-looping **pen-and-ink**
-slideshow of selected interior work. Monochromatic, no scroll, no dropdowns: a quiet
-product showcase, not a marketing page.
+A single landing page for **Pen and Ink** — a studio for *architecture · interiors · urbanism*.
+A full-screen, auto-looping **pen-and-ink** slideshow of selected work. Monochromatic, no scroll,
+no dropdowns: a quiet product showcase, not a marketing page.
 
 **Open:** [`index.html`](index.html)
 
@@ -28,5 +28,5 @@ re-process or add images, then point new `<img>` tags at `assets/ink/<name>.jpg`
 ## To do (account actions — see hand-off notes)
 
 - **Make the GitHub repo private** (repo Settings → General → Danger Zone → Change visibility).
-- **Register the website Gmail.** The page currently links `vishkar.interiors@gmail.com` as the
+- **Register the website Gmail.** The page currently links `penandink.studio@gmail.com` as the
   Enquire address — this needs to be created/confirmed.
