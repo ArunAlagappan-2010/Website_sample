@@ -12,6 +12,7 @@
     --soft:#b9b6b0;--nav-h:88px;
     --sans:'SF Pro Display','Helvetica Neue','Segoe UI',Arial,sans-serif;
     --display:'Cormorant Garamond',serif;
+    --gold:#b8975a;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{min-height:100%;background:#0d0d0d;color:#fff;
@@ -23,14 +24,11 @@
   .nav{position:fixed;top:0;left:0;right:0;z-index:60;height:var(--nav-h);
     display:flex;align-items:center;justify-content:space-between;
     padding:0 48px;background:transparent;
-    transition:background .4s ease,backdrop-filter .4s ease,-webkit-backdrop-filter .4s ease}
+    transition:background .4s,backdrop-filter .4s,-webkit-backdrop-filter .4s}
   .nav::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
     background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,0) 100%)}
-  /* nav blur when lightbox is open */
-  .lb-open .nav{
-    background:rgba(0,0,0,.22);
-    backdrop-filter:blur(18px) saturate(80%);
-    -webkit-backdrop-filter:blur(18px) saturate(80%)}
+  .lb-open .nav{background:rgba(0,0,0,.15);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
   .brand{display:flex;align-items:center;height:100%}
   .brand img{height:54px;width:auto;filter:drop-shadow(0 1px 6px rgba(0,0,0,.45))}
   .navright{display:flex;align-items:center}
@@ -42,7 +40,7 @@
   .menu a.active{text-shadow:0 0 18px rgba(255,255,255,.65)}
   .burger{display:none;background:none;border:none;font-size:26px;color:#fff;cursor:pointer}
 
-  /* ── PAGE HERO ── */
+  /* ── HERO ── */
   .hero{padding:calc(var(--nav-h) + 70px) 48px 44px}
   .hero h1{font-family:var(--display);font-style:italic;font-weight:300;
     font-size:clamp(44px,6vw,90px);letter-spacing:.01em;line-height:.9;color:#fff}
@@ -57,25 +55,33 @@
     gap:28px;
     width:100%;
   }
-  .gi{
-    position:relative;aspect-ratio:4/3;overflow:hidden;
-    cursor:pointer;background:#1a1a1a;border-radius:3px;
-  }
+
+  /* tile */
+  .gi{position:relative;aspect-ratio:4/3;overflow:hidden;
+    cursor:pointer;background:#1a1a1a;border-radius:3px}
   .gi img{
     width:100%;height:100%;object-fit:cover;
-    filter:grayscale(1) brightness(.88);
+    filter:grayscale(1) brightness(.86);
     transition:filter .6s cubic-bezier(.25,.46,.45,.94),
                transform .7s cubic-bezier(.25,.46,.45,.94);
     will-change:transform,filter;
   }
   .gi:hover img{filter:grayscale(0) brightness(1);transform:scale(1.04)}
 
+  /* photo count badge */
+  .gi-badge{
+    position:absolute;top:12px;right:12px;z-index:2;
+    background:rgba(0,0,0,.52);border:1px solid rgba(255,255,255,.25);
+    color:rgba(255,255,255,.9);font-size:10px;letter-spacing:.08em;
+    padding:4px 9px;border-radius:2px;pointer-events:none;
+  }
+
   /* hover label */
   .gi-label{
     position:absolute;left:0;right:0;bottom:0;
-    padding:32px 18px 14px;
-    background:linear-gradient(0deg,rgba(0,0,0,.65) 0%,transparent 100%);
-    opacity:0;transition:opacity .35s ease;pointer-events:none;
+    padding:36px 18px 14px;
+    background:linear-gradient(0deg,rgba(0,0,0,.7) 0%,transparent 100%);
+    opacity:0;transition:opacity .35s;pointer-events:none;
   }
   .gi:hover .gi-label{opacity:1}
   .gi-label span{font-family:var(--display);font-style:italic;
@@ -84,68 +90,82 @@
   /* ── LIGHTBOX ── */
   .lb{
     position:fixed;inset:0;z-index:100;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    opacity:0;pointer-events:none;
-    transition:opacity .35s ease;
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;transition:opacity .3s ease;
   }
   .lb.open{opacity:1;pointer-events:all}
 
-  /* blurred dark backdrop — covers nav too */
   .lb-bg{
     position:absolute;inset:0;
-    background:rgba(5,5,5,.72);
-    backdrop-filter:blur(22px) brightness(.55);
-    -webkit-backdrop-filter:blur(22px) brightness(.55);
+    background:rgba(4,4,4,.82);
+    backdrop-filter:blur(24px) brightness(.48);
+    -webkit-backdrop-filter:blur(24px) brightness(.48);
   }
 
-  /* close button — top right */
+  /* close */
   .lb-close{
-    position:absolute;top:26px;right:30px;z-index:102;
-    background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.18);
-    border-radius:50%;width:42px;height:42px;
-    font-size:18px;color:#fff;cursor:pointer;
+    position:absolute;top:22px;right:26px;z-index:103;
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+    border-radius:50%;width:40px;height:40px;
+    font-size:17px;color:#fff;cursor:pointer;
     display:flex;align-items:center;justify-content:center;
     transition:background .2s;
   }
-  .lb-close:hover{background:rgba(0,0,0,.6)}
+  .lb-close:hover{background:rgba(255,255,255,.18)}
 
-  /* frame: image + dark strip */
+  /* side arrows */
+  .lb-arr{
+    position:absolute;top:50%;transform:translateY(-50%);
+    z-index:103;cursor:pointer;background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.18);border-radius:3px;
+    color:#fff;font-family:var(--display);font-size:68px;line-height:1;
+    width:64px;height:120px;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .2s,transform .15s;user-select:none;
+  }
+  .lb-arr:hover{background:rgba(255,255,255,.15);transform:translateY(-50%) scale(1.06)}
+  .lb-prev{left:24px}
+  .lb-next{right:24px}
+
+  /* image frame */
   .lb-frame{
     position:relative;z-index:101;
     display:flex;flex-direction:column;
-    max-width:80vw;
-    max-height:88vh;
-    overflow:hidden;
-    border-radius:4px;
-    box-shadow:0 48px 120px rgba(0,0,0,.75);
+    max-width:88vw;max-height:92vh;
+    overflow:hidden;border-radius:3px;
+    box-shadow:0 60px 130px rgba(0,0,0,.8);
     transform:scale(.94);
     transition:transform .38s cubic-bezier(.25,.46,.45,.94);
   }
   .lb.open .lb-frame{transform:scale(1)}
 
   .lb-img{
-    display:block;
-    width:auto;height:auto;
-    max-width:80vw;
-    max-height:calc(88vh - 58px); /* leave room for strip */
+    display:block;width:auto;height:auto;
+    max-width:88vw;max-height:calc(92vh - 56px);
     object-fit:contain;
+    transition:opacity .22s ease;
   }
+  .lb-img.fading{opacity:0}
 
-  /* dark grey info strip */
+  /* dark strip */
   .lb-strip{
-    flex-shrink:0;
-    background:#1c1c1c;
-    padding:13px 22px;
-    display:flex;align-items:baseline;gap:20px;
-    border-top:1px solid rgba(255,255,255,.08);
+    flex-shrink:0;background:#181818;
+    padding:12px 22px;
+    display:flex;align-items:center;justify-content:space-between;
+    border-top:1px solid rgba(255,255,255,.07);
+    gap:16px;
   }
   .lb-strip h2{
     font-family:var(--display);font-style:italic;font-weight:300;
-    font-size:clamp(16px,2vw,22px);color:#fff;white-space:nowrap;
+    font-size:clamp(15px,1.8vw,20px);color:#fff;white-space:nowrap;
   }
-  .lb-strip .meta{
+  .lb-strip .lb-meta{
     font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
-    color:rgba(255,255,255,.48);white-space:nowrap;
+    color:rgba(255,255,255,.45);white-space:nowrap;
+  }
+  .lb-strip .lb-count{
+    font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.5);
+    white-space:nowrap;margin-left:auto;flex-shrink:0;
   }
 
   @media(max-width:900px){
@@ -153,7 +173,9 @@
     .menu{display:none}.burger{display:block}
     .hero{padding:calc(70px + 44px) 24px 28px}
     .gallery{grid-template-columns:repeat(2,1fr);padding:6px 20px 80px;gap:16px}
-    .lb-frame,.lb-img{max-width:94vw}
+    .lb-arr{width:44px;height:88px;font-size:48px}
+    .lb-prev{left:8px}.lb-next{right:8px}
+    .lb-frame,.lb-img{max-width:96vw}
   }
   @media(max-width:540px){.gallery{grid-template-columns:1fr}}
 </style>
@@ -183,69 +205,131 @@
 <div class="lb" id="lb" role="dialog" aria-modal="true">
   <div class="lb-bg" id="lb-bg"></div>
   <button class="lb-close" id="lb-close" aria-label="Close">&#x2715;</button>
+  <button class="lb-arr lb-prev" id="lb-prev">&#8249;</button>
+  <button class="lb-arr lb-next" id="lb-next">&#8250;</button>
   <figure class="lb-frame">
     <img id="lb-img" src="" alt="" class="lb-img">
     <div class="lb-strip">
       <h2 id="lb-name"></h2>
-      <span class="meta" id="lb-meta"></span>
+      <span class="lb-meta" id="lb-meta"></span>
+      <span class="lb-count" id="lb-count"></span>
     </div>
   </figure>
 </div>
 
 <script>
+const G = 'assets/gallery/';
 const projects = [
-  { name:"Bespoke Residence",   type:"Architecture",    city:"Chennai",      year:"2023" },
-  { name:"Studio Loft",         type:"Interiors",       city:"Bengaluru",    year:"2022" },
-  { name:"The Terraced House",  type:"Architecture",    city:"Mumbai",       year:"2024" },
-  { name:"Garden Pavilion",     type:"Urbanism",        city:"Coimbatore",   year:"2023" },
-  { name:"The Atelier",         type:"Interiors",       city:"Chennai",      year:"2022" },
-  { name:"Coastal Retreat",     type:"Architecture",    city:"Pondicherry",  year:"2023" },
-  { name:"The Urban Loft",      type:"Interiors",       city:"Bengaluru",    year:"2024" },
-  { name:"Heritage Villa",      type:"Architecture",    city:"Chennai",      year:"2021" },
-  { name:"The Skyhouse",        type:"Architecture",    city:"Mumbai",       year:"2023" },
-  { name:"Riverside Studio",    type:"Interiors",       city:"Kochi",        year:"2024" },
-  { name:"The Collector's Home",type:"Architecture",    city:"Hyderabad",    year:"2022" },
-  { name:"Night Market Square", type:"Urbanism",        city:"Chennai",      year:"2024" },
+  { name:'Bespoke Residence',    type:'Architecture',  city:'Chennai',     year:'2024',
+    imgs:[G+'g01.jpg',G+'g01b.jpg',G+'g01c.jpg'] },
+  { name:'Studio Loft',          type:'Interiors',     city:'Bengaluru',   year:'2023',
+    imgs:[G+'g02.jpg',G+'g02b.jpg',G+'g02c.jpg'] },
+  { name:'The Terraced House',   type:'Architecture',  city:'Mumbai',      year:'2024',
+    imgs:[G+'g03.jpg',G+'g03b.jpg',G+'g03c.jpg'] },
+  { name:'Garden Pavilion',      type:'Urbanism',      city:'Coimbatore',  year:'2023',
+    imgs:[G+'g04.jpg',G+'g04b.jpg',G+'g04c.jpg'] },
+  { name:'The Atelier',          type:'Interiors',     city:'Chennai',     year:'2023',
+    imgs:[G+'g05.jpg',G+'g05b.jpg',G+'g05c.jpg'] },
+  { name:'Coastal Retreat',      type:'Architecture',  city:'Pondicherry', year:'2023',
+    imgs:[G+'g06.jpg',G+'g06b.jpg',G+'g06c.jpg'] },
+  { name:'The Urban Loft',       type:'Interiors',     city:'Bengaluru',   year:'2024',
+    imgs:[G+'g07.jpg',G+'g07b.jpg',G+'g07c.jpg'] },
+  { name:'Heritage Villa',       type:'Architecture',  city:'Chennai',     year:'2022',
+    imgs:[G+'g08.jpg',G+'g08b.jpg',G+'g08c.jpg'] },
+  { name:'The Skyhouse',         type:'Architecture',  city:'Mumbai',      year:'2023',
+    imgs:[G+'g09.jpg',G+'g09b.jpg',G+'g09c.jpg'] },
+  { name:'Riverside Studio',     type:'Interiors',     city:'Kochi',       year:'2024',
+    imgs:[G+'g10.jpg',G+'g10b.jpg',G+'g10c.jpg'] },
+  { name:"The Collector's Home", type:'Architecture',  city:'Hyderabad',   year:'2023',
+    imgs:[G+'g11.jpg',G+'g11b.jpg',G+'g11c.jpg'] },
+  { name:'Night Market Square',  type:'Urbanism',      city:'Chennai',     year:'2024',
+    imgs:[G+'g12.jpg',G+'g12b.jpg',G+'g12c.jpg'] },
 ];
 
-const imgSrc = i => `assets/gallery/g${String(i+1).padStart(2,'0')}.jpg`;
-
-// build grid
+// ── Build grid ──
 const gal = document.getElementById('gallery');
-projects.forEach((p, i) => {
+projects.forEach((p, pi) => {
   const d = document.createElement('div');
   d.className = 'gi';
-  d.innerHTML = `<img src="${imgSrc(i)}" alt="${p.name}" loading="lazy">
+  d.innerHTML = `
+    <img src="${p.imgs[0]}" alt="${p.name}" loading="lazy">
+    <div class="gi-badge">${p.imgs.length} photos</div>
     <div class="gi-label"><span>${p.name}</span></div>`;
-  d.addEventListener('click', () => openLb(i));
+  d.addEventListener('click', () => openLb(pi, 0));
   gal.appendChild(d);
 });
 
-// lightbox
+// ── Lightbox state ──
 const lb     = document.getElementById('lb');
 const lbImg  = document.getElementById('lb-img');
 const lbName = document.getElementById('lb-name');
 const lbMeta = document.getElementById('lb-meta');
+const lbCount= document.getElementById('lb-count');
+const lbPrev = document.getElementById('lb-prev');
+const lbNext = document.getElementById('lb-next');
 
-function openLb(i){
-  const p = projects[i];
-  lbImg.src = imgSrc(i);
-  lbImg.alt = p.name;
+let cur = { pi:0, ii:0 };
+
+function showImg(pi, ii, dir=0) {
+  const p = projects[pi];
+  const total = p.imgs.length;
+  ii = (ii + total) % total;
+  cur = { pi, ii };
+
+  // fade transition
+  if (dir !== 0) {
+    lbImg.classList.add('fading');
+    setTimeout(() => {
+      lbImg.src = p.imgs[ii];
+      lbImg.alt = p.name;
+      lbImg.classList.remove('fading');
+    }, 180);
+  } else {
+    lbImg.src = p.imgs[ii];
+    lbImg.alt = p.name;
+  }
+
   lbName.textContent = p.name;
-  lbMeta.textContent = p.type + ' · ' + p.city + ' · ' + p.year;
+  lbMeta.textContent = p.type + ' · ' + p.city + ' · ' + p.year;
+  lbCount.textContent = (ii + 1) + ' / ' + total;
+
+  // hide arrows if only one image
+  const vis = total > 1 ? 'flex' : 'none';
+  lbPrev.style.display = vis;
+  lbNext.style.display = vis;
+}
+
+function openLb(pi, ii) {
+  showImg(pi, ii);
   lb.classList.add('open');
   document.body.classList.add('lb-open');
   document.body.style.overflow = 'hidden';
 }
-function closeLb(){
+
+function closeLb() {
   lb.classList.remove('open');
   document.body.classList.remove('lb-open');
   document.body.style.overflow = '';
 }
 
+lbPrev.addEventListener('click', e => { e.stopPropagation(); showImg(cur.pi, cur.ii - 1, -1); });
+lbNext.addEventListener('click', e => { e.stopPropagation(); showImg(cur.pi, cur.ii + 1,  1); });
 document.getElementById('lb-close').addEventListener('click', closeLb);
 document.getElementById('lb-bg').addEventListener('click', closeLb);
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLb(); });
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape')     closeLb();
+  if (e.key === 'ArrowRight') showImg(cur.pi, cur.ii + 1,  1);
+  if (e.key === 'ArrowLeft')  showImg(cur.pi, cur.ii - 1, -1);
+});
+
+// touch swipe
+let tx = 0;
+lb.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+lb.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 50) showImg(cur.pi, cur.ii + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+}, {passive:true});
 </script>
 </body>
 </html>
