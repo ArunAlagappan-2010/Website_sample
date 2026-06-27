@@ -116,18 +116,19 @@
     line-height:1.75;max-width:380px}
 
   /* ── SLIDE 5 · OUR STORY founders · bottom-right ── */
-  #ps5 .bg{background-image:url('assets/philosophy/p5.jpg');filter:grayscale(.2) brightness(.6)}
-  #ps5 .ov{background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.22) 55%,rgba(0,0,0,.05) 100%)}
+  #ps5 .bg{background-image:url('assets/philosophy/p5.jpg');filter:grayscale(.25) brightness(.5)}
+  #ps5 .ov{background:linear-gradient(to top,rgba(0,0,0,.96) 0%,rgba(0,0,0,.6) 48%,rgba(0,0,0,.18) 100%)}
   #ps5 .ct{flex-direction:column;justify-content:flex-end;align-items:flex-end;gap:0}
 
-  .s5-wrap{display:flex;flex-direction:column;gap:14px;max-width:52%;text-align:right}
+  .s5-wrap{display:flex;flex-direction:column;gap:16px;max-width:56%;text-align:right}
   .s5-wrap p{font-family:var(--display);font-style:italic;font-weight:300;
-    font-size:clamp(12px,1.15vw,16px);color:rgba(255,255,255,.7);line-height:1.82}
+    font-size:clamp(13.5px,1.25vw,17.5px);color:rgba(255,255,255,.92);line-height:1.84;
+    text-shadow:0 1px 12px rgba(0,0,0,.8)}
 
   /* ── PROGRESS BAR ── */
   .prog{position:fixed;bottom:0;left:0;height:2px;background:var(--gold);z-index:50;
-    opacity:.5;width:0;transition:none}
-  .prog.run{transition:width 12s linear}
+    opacity:.55;width:0;transition:none}
+  .prog.run{transition:width 5s linear}
 
   /* ── ARROWS ── */
   .phil-nav{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);
@@ -257,7 +258,7 @@
   const slides   = [...document.querySelectorAll('.ps')];
   const curEl    = document.getElementById('p-cur');
   const prog     = document.getElementById('prog');
-  const DURATION = 12000; // 12 s — enough to read each slide
+  const DURATION = 5000; // 5 s per slide
   let idx = 0, timer = null;
 
   function resetProg() {
