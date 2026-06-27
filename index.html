@@ -128,7 +128,10 @@
   const words=['Light','Still','Shelter','Grain','Depth','Form','Craft','Tone','Void','Ground','Good'];
   const slides=[...document.querySelectorAll('.slide')];
   const word=document.getElementById('word');
-  let i=0, timer, goTimer;
+  let i=Math.floor(Math.random()*slides.length), timer, goTimer;
+  // activate random starting slide
+  slides.forEach(s=>s.classList.remove('on'));
+  slides[i].classList.add('on');
 
   function go(k){
     const prev=i;
@@ -150,7 +153,7 @@
     restart();
   }
   function restart(){clearInterval(timer);timer=setInterval(()=>go(i+1),5500);}
-  word.textContent=words[0]; word.classList.add('in');
+  word.textContent=words[i]; word.classList.add('in');
   restart();
   addEventListener('keydown',e=>{
     if(e.key==='ArrowRight')go(i+1);
