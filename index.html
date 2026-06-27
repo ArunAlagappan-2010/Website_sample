@@ -24,8 +24,8 @@
   .loader{position:fixed;inset:0;z-index:70;background:#0d0d0d;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .7s ease,visibility .7s}
   .loader.done{opacity:0;visibility:hidden}
   .lw{display:flex;flex-direction:column;align-items:center;gap:22px}
-  .lw img{height:150px;width:auto;animation:lrise .5s cubic-bezier(.22,.82,.36,1) both}
-  @keyframes lrise{from{transform:translateY(28px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .lw img{height:150px;width:auto;animation:lrise 1.1s cubic-bezier(.22,1,.36,1) both}
+  @keyframes lrise{from{transform:translateY(55vh);opacity:0;filter:blur(3px)}to{transform:translateY(0);opacity:1;filter:blur(0)}}
   .ltype{font-family:var(--sans);font-size:11px;letter-spacing:.22em;color:rgba(255,255,255,.45);
     text-align:center;white-space:nowrap;min-height:16px;opacity:0;transition:opacity .2s}
   .ltype.vis{opacity:1}
@@ -113,18 +113,20 @@
 <div class="word in" id="word">Light</div>
 
 <script>
-  // Loader: logo rises in 0.5s, text types fast below, loader gone by ~2s total
+  // Loader: logo rises from bottom (1.1s), then text types in below
   (function(){
     const loader = document.getElementById('loader');
     const ltEl   = document.getElementById('ltype');
     const msg    = 'E V E R Y  S P A C E  H A S  A  P U L S E .   E V E R Y  B U I L D I N G  H A S  A  V O I C E .';
+    // start typing 120ms after logo fully settles at centre
     setTimeout(()=>{
       ltEl.classList.add('vis');
       let c=0;
-      const tick=()=>{ltEl.textContent=msg.slice(0,++c);if(c<msg.length)setTimeout(tick,16);};
+      const tick=()=>{ltEl.textContent=msg.slice(0,++c);if(c<msg.length)setTimeout(tick,28);};
       tick();
-    },580);
-    setTimeout(()=>loader.classList.add('done'),2100);
+    },1220);
+    // hide after rise + full type + brief pause
+    setTimeout(()=>loader.classList.add('done'),4100);
   })();
 
   const words=['Light','Still','Shelter','Grain','Depth','Form','Craft','Tone','Void','Ground','Good'];
