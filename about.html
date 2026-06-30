@@ -60,7 +60,7 @@
   .c-lbl{position:absolute;bottom:22px;right:52px;z-index:5;display:flex;
     flex-direction:column;align-items:flex-end;gap:2px;font-size:8.5px;letter-spacing:.22em;
     text-transform:uppercase;color:rgba(255,255,255,.42)}
-  .c-lbl .pi{font-family:var(--display);font-style:italic;font-size:46px;
+  .c-lbl .pi{font-family:var(--display);font-style:normal;font-size:46px;
     line-height:.9;color:rgba(200,165,80,.95);text-shadow:0 2px 18px rgba(0,0,0,.5)}
 
   /* ── UNIVERSAL CONTENT FRAME ──
@@ -70,12 +70,12 @@
   .ct{position:absolute;inset:0;z-index:3;display:grid;
     padding:calc(var(--nav-h) + 40px) 64px 88px}
   .ct-mid{place-items:center}
-  .ct-bot{align-items:end;justify-items:center}
+  .ct-bot{align-items:center;justify-items:center}
 
   /* ── UNIVERSAL TEXT BOX ──
      Single element, exact width, text always centred.           */
   .box{
-    width:680px;
+    width:780px;
     max-width:calc(100% - 0px); /* flex with padding already set on .ct */
     text-align:center;
   }
@@ -83,35 +83,35 @@
 
   /* ── TYPOGRAPHY ── */
   .t-headline{
-    font-family:var(--display);font-style:italic;font-weight:300;
-    font-size:clamp(26px,3.2vw,52px);letter-spacing:.025em;line-height:1.18;
+    font-family:var(--display);font-style:normal;font-weight:600;
+    font-size:clamp(32px,3.9vw,62px);letter-spacing:.01em;line-height:1.16;
     color:#fff;text-shadow:0 2px 28px rgba(0,0,0,.65)}
   .t-caps{
-    font-size:clamp(11px,.95vw,13.5px);letter-spacing:.22em;text-transform:uppercase;
-    color:rgba(255,255,255,.8);line-height:1.9;
+    font-size:clamp(13px,1.1vw,16px);font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+    color:rgba(255,255,255,.82);line-height:1.85;
     text-shadow:0 1px 10px rgba(0,0,0,.6)}
   .t-body{
-    font-family:var(--display);font-style:italic;font-weight:300;
-    font-size:clamp(15px,1.3vw,19px);color:rgba(255,255,255,.9);
-    line-height:1.75;text-shadow:0 1px 12px rgba(0,0,0,.55)}
+    font-family:var(--display);font-style:normal;font-weight:400;
+    font-size:clamp(16px,1.45vw,21px);color:rgba(255,255,255,.92);
+    line-height:1.7;text-shadow:0 1px 12px rgba(0,0,0,.55)}
   .t-quote{
-    font-family:var(--display);font-style:italic;font-weight:300;
-    font-size:clamp(17px,2vw,28px);color:rgba(255,255,255,.9);
-    line-height:1.78;text-shadow:0 2px 20px rgba(0,0,0,.55)}
+    font-family:var(--display);font-style:normal;font-weight:500;
+    font-size:clamp(20px,2.4vw,34px);color:rgba(255,255,255,.95);
+    line-height:1.6;text-shadow:0 2px 20px rgba(0,0,0,.55)}
   .t-statement{
-    font-size:clamp(13px,1.35vw,18px);font-weight:700;letter-spacing:.13em;
+    font-size:clamp(15px,1.55vw,21px);font-weight:700;letter-spacing:.13em;
     text-transform:uppercase;color:#fff;line-height:1.5;
     text-shadow:0 2px 20px rgba(0,0,0,.55)}
   .t-divider{
     display:block;width:44px;height:1px;background:var(--gold);
     opacity:.7;margin:0 auto}
   .t-section-head{
-    font-size:clamp(22px,2.4vw,36px);font-weight:700;letter-spacing:.12em;
+    font-size:clamp(26px,2.9vw,42px);font-weight:700;letter-spacing:.1em;
     text-transform:uppercase;color:#fff;
     text-shadow:0 2px 20px rgba(0,0,0,.6)}
   .t-section-p{
-    font-size:clamp(13px,1.1vw,15.5px);color:rgba(255,255,255,.85);
-    line-height:1.78;text-shadow:0 1px 8px rgba(0,0,0,.55)}
+    font-size:clamp(15px,1.25vw,18px);color:rgba(255,255,255,.88);
+    line-height:1.7;text-shadow:0 1px 8px rgba(0,0,0,.55)}
 
   /* section blocks inside box (slides 3 & 4) */
   .section{margin-top:32px}
