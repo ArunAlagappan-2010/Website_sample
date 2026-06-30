@@ -18,7 +18,7 @@
   html,body{height:100%;overflow:hidden;background:#111;font-family:var(--sans);
     color:#fff;-webkit-font-smoothing:antialiased}
   a{text-decoration:none;color:inherit}
-  img{display:block}
+  img{display:block;-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none}
 
   /* grain */
   body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;
@@ -27,8 +27,10 @@
   /* ── NAV ── */
   .nav{position:fixed;top:0;left:0;right:0;z-index:60;height:var(--nav-h);
     display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:transparent}
-  .nav::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-    background:linear-gradient(180deg,rgba(0,0,0,.65) 0%,transparent 100%)}
+  .nav::before{content:"";position:absolute;left:0;right:0;top:0;bottom:-52px;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(0,0,0,.7) 0%,rgba(0,0,0,.28) 45%,transparent 100%);
+    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+    -webkit-mask:linear-gradient(180deg,#000 35%,transparent 100%);mask:linear-gradient(180deg,#000 35%,transparent 100%)}
   .brand{display:flex;align-items:center;height:100%}
   .brand img{height:54px;width:auto}
   .menu{position:absolute;left:50%;transform:translateX(-50%);
@@ -55,11 +57,11 @@
   .g-rule{position:absolute;bottom:0;left:48px;right:48px;height:1px;z-index:5;
     background:linear-gradient(90deg,transparent,var(--gold) 14%,var(--gold) 86%,transparent);
     opacity:.38}
-  .c-lbl{position:absolute;bottom:13px;right:52px;z-index:5;display:flex;
-    align-items:center;gap:10px;font-size:9px;letter-spacing:.2em;
-    text-transform:uppercase;color:rgba(255,255,255,.38)}
-  .c-lbl .pi{font-family:var(--display);font-style:italic;font-size:22px;
-    line-height:1;color:rgba(200,165,80,.75)}
+  .c-lbl{position:absolute;bottom:22px;right:52px;z-index:5;display:flex;
+    flex-direction:column;align-items:flex-end;gap:2px;font-size:8.5px;letter-spacing:.22em;
+    text-transform:uppercase;color:rgba(255,255,255,.42)}
+  .c-lbl .pi{font-family:var(--display);font-style:italic;font-size:46px;
+    line-height:.9;color:rgba(200,165,80,.95);text-shadow:0 2px 18px rgba(0,0,0,.5)}
 
   /* ── UNIVERSAL CONTENT FRAME ──
      CSS grid: one cell, place-items centers the .box perfectly.
@@ -173,6 +175,9 @@
     letter-spacing:.02em;line-height:1.25;transition:color .2s,letter-spacing .25s}
   .mob-links a:hover,.mob-links a.active{color:#fff;letter-spacing:.04em}
   .mob-rule{width:40px;height:1px;background:var(--gold);opacity:.5;margin:18px auto}
+  .mob-logo{padding:0!important}
+  .mob-logo img{height:64px;width:auto;margin-bottom:10px;filter:drop-shadow(0 1px 6px rgba(0,0,0,.5))}
+  .g-rule,.phil-nav,.prog{display:none!important}
 </style>
 </head>
 <body>
@@ -285,9 +290,8 @@
 
 <!-- MOBILE MENU -->
 <div class="mob" id="mob">
-  <button class="mob-x" id="mobX">&#x2715;</button>
   <nav class="mob-links">
-    <a href="index.html">Home</a>
+    <a href="index.html" class="mob-logo"><img src="assets/logo-white.png" alt="Pen and Ink"></a>
     <div class="mob-rule"></div>
     <a href="about.html" class="active">Our Philosophy</a>
     <a href="our-work.html">Our Work</a>
@@ -308,9 +312,9 @@
   (function(){
     const mob=document.getElementById('mob');
     document.querySelector('.burger').addEventListener('click',()=>mob.classList.add('open'));
-    document.getElementById('mobX').addEventListener('click',()=>mob.classList.remove('open'));
     mob.addEventListener('click',e=>{if(e.target===mob)mob.classList.remove('open');});
   })();
+  ['contextmenu','dragstart'].forEach(ev=>document.addEventListener(ev,e=>{if(e.target.tagName==='IMG')e.preventDefault();}));
 
   const slides = [...document.querySelectorAll('.ps')];
   const curEl  = document.getElementById('p-cur');

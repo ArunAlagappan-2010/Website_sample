@@ -18,15 +18,17 @@
   html,body{min-height:100%;background:#0d0d0d;color:#fff;
     font-family:var(--sans);-webkit-font-smoothing:antialiased}
   a{text-decoration:none;color:inherit}
-  img{display:block}
+  img{display:block;-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none}
 
   /* ── NAV ── */
   .nav{position:fixed;top:0;left:0;right:0;z-index:60;height:var(--nav-h);
     display:flex;align-items:center;justify-content:space-between;
     padding:0 48px;background:transparent;
     transition:background .4s,backdrop-filter .4s,-webkit-backdrop-filter .4s}
-  .nav::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-    background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,0) 100%)}
+  .nav::before{content:"";position:absolute;left:0;right:0;top:0;bottom:-52px;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.24) 45%,rgba(0,0,0,0) 100%);
+    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+    -webkit-mask:linear-gradient(180deg,#000 35%,transparent 100%);mask:linear-gradient(180deg,#000 35%,transparent 100%)}
   .lb-open .nav{background:rgba(0,0,0,.15);
     backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
   .brand{display:flex;align-items:center;height:100%}
@@ -52,7 +54,7 @@
     padding:8px 48px 120px;
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:28px;
+    gap:52px;
     width:100%;
   }
 
@@ -116,14 +118,14 @@
   /* side arrows */
   .lb-arr{
     position:absolute;top:50%;transform:translateY(-50%);
-    z-index:103;cursor:pointer;background:rgba(255,255,255,.07);
-    border:1px solid rgba(255,255,255,.18);border-radius:3px;
+    z-index:103;cursor:pointer;background:transparent;
+    border:none;border-radius:3px;
     color:#fff;font-family:var(--display);font-size:68px;line-height:1;
-    width:64px;height:120px;
+    width:64px;height:120px;opacity:.6;
     display:flex;align-items:center;justify-content:center;
-    transition:background .2s,transform .15s;user-select:none;
+    transition:opacity .2s,transform .15s;user-select:none;
   }
-  .lb-arr:hover{background:rgba(255,255,255,.15);transform:translateY(-50%) scale(1.06)}
+  .lb-arr:hover{background:transparent;opacity:1;transform:translateY(-50%) scale(1.06)}
   .lb-prev{left:24px}
   .lb-next{right:24px}
 
@@ -150,11 +152,17 @@
   /* dark strip */
   .lb-strip{
     flex-shrink:0;background:#181818;
-    padding:12px 22px;
-    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 22px;
+    display:flex;flex-direction:column;align-items:center;
     border-top:1px solid rgba(255,255,255,.07);
-    gap:16px;
+    gap:10px;
   }
+  .lb-dots{display:flex;align-items:center;gap:8px}
+  .lb-dots button{width:7px;height:7px;padding:0;border:none;border-radius:50%;
+    background:rgba(255,255,255,.3);cursor:pointer;
+    transition:background .25s,transform .25s}
+  .lb-dots button.on{background:#fff;transform:scale(1.3)}
+  .lb-strip-row{display:flex;align-items:center;justify-content:center;gap:16px}
   .lb-strip h2{
     font-family:var(--display);font-style:italic;font-weight:300;
     font-size:clamp(15px,1.8vw,20px);color:#fff;white-space:nowrap;
@@ -162,10 +170,6 @@
   .lb-strip .lb-meta{
     font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
     color:rgba(255,255,255,.45);white-space:nowrap;
-  }
-  .lb-strip .lb-count{
-    font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.5);
-    white-space:nowrap;margin-left:auto;flex-shrink:0;
   }
 
   @media(max-width:900px){
@@ -197,6 +201,8 @@
     letter-spacing:.02em;line-height:1.25;transition:color .2s,letter-spacing .25s}
   .mob-links a:hover,.mob-links a.active{color:#fff;letter-spacing:.04em}
   .mob-rule{width:40px;height:1px;background:var(--gold);opacity:.5;margin:18px auto}
+  .mob-logo{padding:0!important}
+  .mob-logo img{height:64px;width:auto;margin-bottom:10px;filter:drop-shadow(0 1px 6px rgba(0,0,0,.5))}
 </style>
 </head>
 <body>
@@ -215,9 +221,8 @@
 
 <!-- MOBILE MENU -->
 <div class="mob" id="mob">
-  <button class="mob-x" id="mobX">&#x2715;</button>
   <nav class="mob-links">
-    <a href="index.html">Home</a>
+    <a href="index.html" class="mob-logo"><img src="assets/logo-white.png" alt="Pen and Ink"></a>
     <div class="mob-rule"></div>
     <a href="about.html">Our Philosophy</a>
     <a href="our-work.html" class="active">Our Work</a>
@@ -235,15 +240,16 @@
 <!-- LIGHTBOX -->
 <div class="lb" id="lb" role="dialog" aria-modal="true">
   <div class="lb-bg" id="lb-bg"></div>
-  <button class="lb-close" id="lb-close" aria-label="Close">&#x2715;</button>
   <button class="lb-arr lb-prev" id="lb-prev">&#8249;</button>
   <button class="lb-arr lb-next" id="lb-next">&#8250;</button>
   <figure class="lb-frame">
     <img id="lb-img" src="" alt="" class="lb-img">
     <div class="lb-strip">
-      <h2 id="lb-name"></h2>
-      <span class="lb-meta" id="lb-meta"></span>
-      <span class="lb-count" id="lb-count"></span>
+      <div class="lb-dots" id="lb-dots"></div>
+      <div class="lb-strip-row">
+        <h2 id="lb-name"></h2>
+        <span class="lb-meta" id="lb-meta"></span>
+      </div>
     </div>
   </figure>
 </div>
@@ -253,9 +259,9 @@
 (function(){
   const mob=document.getElementById('mob');
   document.querySelector('.burger').addEventListener('click',()=>mob.classList.add('open'));
-  document.getElementById('mobX').addEventListener('click',()=>mob.classList.remove('open'));
   mob.addEventListener('click',e=>{if(e.target===mob)mob.classList.remove('open');});
 })();
+['contextmenu','dragstart'].forEach(ev=>document.addEventListener(ev,e=>{if(e.target.tagName==='IMG')e.preventDefault();}));
 
 const G = 'assets/gallery/';
 const projects = [
@@ -292,7 +298,6 @@ projects.forEach((p, pi) => {
   d.className = 'gi';
   d.innerHTML = `
     <img src="${p.imgs[0]}" alt="${p.name}" loading="lazy">
-    <div class="gi-badge">${p.imgs.length} photos</div>
     <div class="gi-label"><span>${p.name}</span></div>`;
   d.addEventListener('click', () => openLb(pi, 0));
   gal.appendChild(d);
@@ -303,7 +308,7 @@ const lb     = document.getElementById('lb');
 const lbImg  = document.getElementById('lb-img');
 const lbName = document.getElementById('lb-name');
 const lbMeta = document.getElementById('lb-meta');
-const lbCount= document.getElementById('lb-count');
+const lbDots = document.getElementById('lb-dots');
 const lbPrev = document.getElementById('lb-prev');
 const lbNext = document.getElementById('lb-next');
 
@@ -330,7 +335,17 @@ function showImg(pi, ii, dir=0) {
 
   lbName.textContent = p.name;
   lbMeta.textContent = p.type + ' · ' + p.city + ' · ' + p.year;
-  lbCount.textContent = (ii + 1) + ' / ' + total;
+
+  // dots above the name
+  lbDots.innerHTML = '';
+  for (let k = 0; k < total; k++) {
+    const dot = document.createElement('button');
+    dot.className = k === ii ? 'on' : '';
+    dot.setAttribute('aria-label', 'Photo ' + (k + 1));
+    dot.addEventListener('click', e => { e.stopPropagation(); showImg(cur.pi, k, k > cur.ii ? 1 : -1); });
+    lbDots.appendChild(dot);
+  }
+  lbDots.style.display = total > 1 ? 'flex' : 'none';
 
   // hide arrows if only one image
   const vis = total > 1 ? 'flex' : 'none';
@@ -353,7 +368,6 @@ function closeLb() {
 
 lbPrev.addEventListener('click', e => { e.stopPropagation(); showImg(cur.pi, cur.ii - 1, -1); });
 lbNext.addEventListener('click', e => { e.stopPropagation(); showImg(cur.pi, cur.ii + 1,  1); });
-document.getElementById('lb-close').addEventListener('click', closeLb);
 document.getElementById('lb-bg').addEventListener('click', closeLb);
 document.addEventListener('keydown', e => {
   if (!lb.classList.contains('open')) return;

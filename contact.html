@@ -21,7 +21,7 @@
   body{background:#0d0d0d;color:#fff;font-family:var(--sans);
     -webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{text-decoration:none;color:inherit}
-  img{display:block;max-width:100%}
+  img{display:block;max-width:100%;-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none}
 
   /* grain overlay */
   body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
@@ -35,8 +35,10 @@
     padding:0 clamp(20px,4vw,56px);background:transparent;
     transition:background .4s,backdrop-filter .4s,-webkit-backdrop-filter .4s;
   }
-  .nav::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-    background:linear-gradient(180deg,rgba(0,0,0,.6) 0%,transparent 100%)}
+  .nav::before{content:"";position:absolute;left:0;right:0;top:0;bottom:-52px;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(0,0,0,.7) 0%,rgba(0,0,0,.28) 45%,transparent 100%);
+    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+    -webkit-mask:linear-gradient(180deg,#000 35%,transparent 100%);mask:linear-gradient(180deg,#000 35%,transparent 100%)}
   .brand{display:flex;align-items:center;height:100%}
   .brand img{height:clamp(38px,5vw,56px);width:auto;
     filter:drop-shadow(0 1px 6px rgba(0,0,0,.5))}
@@ -134,7 +136,7 @@
     color:#fff;margin-bottom:clamp(24px,3.5vh,48px);
   }
   .map-frame{
-    width:100%;aspect-ratio:4/3;border-radius:4px;overflow:hidden;
+    width:100%;max-width:460px;aspect-ratio:4/3;border-radius:4px;overflow:hidden;
     border:1px solid rgba(255,255,255,.1);
   }
   .map-frame iframe{
@@ -280,6 +282,8 @@
     letter-spacing:.02em;line-height:1.25;transition:color .2s,letter-spacing .25s}
   .mob-links a:hover,.mob-links a.active{color:#fff;letter-spacing:.04em}
   .mob-rule{width:40px;height:1px;background:var(--gold);opacity:.5;margin:18px auto}
+  .mob-logo{padding:0!important}
+  .mob-logo img{height:64px;width:auto;margin-bottom:10px;filter:drop-shadow(0 1px 6px rgba(0,0,0,.5))}
 </style>
 </head>
 <body>
@@ -299,9 +303,8 @@
 
 <!-- MOBILE MENU -->
 <div class="mob" id="mob">
-  <button class="mob-x" id="mobX">&#x2715;</button>
   <nav class="mob-links">
-    <a href="index.html">Home</a>
+    <a href="index.html" class="mob-logo"><img src="assets/logo-white.png" alt="Pen and Ink"></a>
     <div class="mob-rule"></div>
     <a href="about.html">Our Philosophy</a>
     <a href="our-work.html">Our Work</a>
@@ -434,9 +437,9 @@
   (function(){
     const mob=document.getElementById('mob');
     document.querySelector('.burger').addEventListener('click',()=>mob.classList.add('open'));
-    document.getElementById('mobX').addEventListener('click',()=>mob.classList.remove('open'));
     mob.addEventListener('click',e=>{if(e.target===mob)mob.classList.remove('open');});
   })();
+  ['contextmenu','dragstart'].forEach(ev=>document.addEventListener(ev,e=>{if(e.target.tagName==='IMG')e.preventDefault();}));
 
   const GMAIL_TO = 'svalar.technik@gmail.com';
   document.getElementById('contactForm').addEventListener('submit', function(e){

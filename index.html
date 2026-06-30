@@ -18,6 +18,7 @@
   html,body{height:100%;overflow:hidden}
   body{font-family:var(--sans);color:var(--ink);background:#111;-webkit-font-smoothing:antialiased}
   a{text-decoration:none;color:inherit}
+  img{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none}
   .hide{display:none!important}
 
   /* LOADER */
@@ -37,7 +38,7 @@
 
   /* ── CONSTANT TRANSPARENT NAV (shared across all pages) ── */
   .nav{position:fixed;top:0;left:0;right:0;z-index:60;height:88px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:transparent;border:none}
-  .nav::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.34) 0%,rgba(0,0,0,0) 100%)}
+  .nav::before{content:"";position:absolute;left:0;right:0;top:0;bottom:-52px;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,.22) 45%,rgba(0,0,0,0) 100%);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);-webkit-mask:linear-gradient(180deg,#000 35%,transparent 100%);mask:linear-gradient(180deg,#000 35%,transparent 100%)}
   .brand{display:flex;align-items:center;height:100%}
   .brand img{height:54px;width:auto;display:block;filter:drop-shadow(0 1px 6px rgba(0,0,0,.45))}
   .navright{display:flex;align-items:center}
@@ -62,7 +63,7 @@
   /* WORD — Cormorant Garamond, luxury screaming size */
   .word{position:fixed;left:52px;bottom:52px;z-index:30;color:#fff;
     font-family:var(--display);font-style:italic;font-weight:300;
-    font-size:clamp(38px,6.5vw,118px);letter-spacing:.01em;line-height:.85;
+    font-size:clamp(26px,4vw,72px);letter-spacing:.01em;line-height:.85;
     text-shadow:0 2px 28px rgba(0,0,0,.35);
     opacity:0;transform:translateY(12px);transition:opacity .85s ease,transform .85s ease}
   .word.in{opacity:1;transform:none}
@@ -71,7 +72,7 @@
     .nav{padding:0 22px;height:70px}.menu{display:none}.burger{display:block}
     .brand img{height:44px}
     .loader img{height:120px}
-    .word{left:24px;bottom:32px;font-size:clamp(30px,9vw,64px)}
+    .word{left:24px;bottom:32px;font-size:clamp(22px,7vw,46px)}
   }
 
   /* ── MOBILE MENU OVERLAY ── */
@@ -96,6 +97,8 @@
     transition:color .2s,letter-spacing .25s}
   .mob-links a:hover,.mob-links a.active{color:#fff;letter-spacing:.04em}
   .mob-rule{width:40px;height:1px;background:var(--gold,#b8975a);opacity:.5;margin:18px auto}
+  .mob-logo{padding:0!important}
+  .mob-logo img{height:64px;width:auto;margin-bottom:10px;filter:drop-shadow(0 1px 6px rgba(0,0,0,.5))}
 </style>
 </head>
 <body>
@@ -140,9 +143,8 @@
 
 <!-- MOBILE MENU -->
 <div class="mob" id="mob">
-  <button class="mob-x" id="mobX">&#x2715;</button>
   <nav class="mob-links">
-    <a href="index.html" class="active">Home</a>
+    <a href="index.html" class="mob-logo"><img src="assets/logo-white.png" alt="Pen and Ink"></a>
     <div class="mob-rule"></div>
     <a href="about.html">Our Philosophy</a>
     <a href="our-work.html">Our Work</a>
@@ -155,9 +157,10 @@
   (function(){
     const mob=document.getElementById('mob');
     document.querySelector('.burger').addEventListener('click',()=>mob.classList.add('open'));
-    document.getElementById('mobX').addEventListener('click',()=>mob.classList.remove('open'));
     mob.addEventListener('click',e=>{if(e.target===mob)mob.classList.remove('open');});
   })();
+  // disable image downloading
+  ['contextmenu','dragstart'].forEach(ev=>document.addEventListener(ev,e=>{if(e.target.tagName==='IMG')e.preventDefault();}));
 
   // Loader: logo rises from bottom, text fades in below
   (function(){
@@ -165,7 +168,7 @@
     const ltEl   = document.getElementById('ltype');
     ltEl.innerHTML = 'Every Space Has a Pulse.<br>Every Building Has a Voice.';
     setTimeout(()=>ltEl.classList.add('vis'), 700);
-    setTimeout(()=>loader.classList.add('done'), 2000);
+    setTimeout(()=>loader.classList.add('done'), 3000);
   })();
 
   const words=['Light','Still','Shelter','Grain','Depth','Form','Craft','Tone','Void','Ground','Good'];
