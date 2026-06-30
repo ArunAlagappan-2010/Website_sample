@@ -306,7 +306,6 @@ projects.forEach((p, pi) => {
   d.className = 'gi';
   d.innerHTML = `
     <img src="${p.imgs[0]}" alt="${p.name}" loading="lazy">
-    ${p.imgs.length > 1 ? `<div class="gi-badge">${p.imgs.length} photos</div>` : ''}
     <div class="gi-label"><span>${p.name}</span></div>`;
   d.addEventListener('click', () => openLb(pi, 0));
   gal.appendChild(d);
